@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2017", // A single target is enough.
+    "module": "ESNext",
+    "moduleResolution": "Bundler", // "Bundler" works with Next.js.
+    "lib": ["DOM", "DOM.Iterable", "ESNext"], // Use consistent capitalization.
+    "jsx": "preserve", // Next.js uses this to support JSX.
+    "strict": true,
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true, // Required for Next.js.
+    "incremental": true, // Improves build performance.
+    "allowJs": true, // Allows JavaScript files in the project.
+    "skipLibCheck": true, // Speeds up compilation by skipping type checks of libraries.
+    "noEmit": true, // Ensures no files are emitted during build.
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"] // Enables path aliases for cleaner imports.
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}
