@@ -39,7 +39,7 @@ export function VideoPlaySection() {
   }
 
   return (
-    <div className="relative w-full h-[600px] overflow-hidden bg-[#1a2744] mt-10">
+    <div className="relative w-full h-[600px] overflow-hidden bg-[#1a2744] mt-20">
       {/* Thumbnail Image (shown before video loads) */}
       {!isVideoLoaded && (
         <Image

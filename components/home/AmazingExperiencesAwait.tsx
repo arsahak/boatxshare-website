@@ -192,7 +192,7 @@ export function AmazingExperiencesAwait() {
   }, [])
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto pt-10">
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold text-[#2D1A4E] mb-2">
           Top Boating Destinations
@@ -200,13 +200,13 @@ export function AmazingExperiencesAwait() {
         <p className="text-gray-600">Explore our most iconic locations</p>
       </div>
 
-      <div className="relative">
+      <div className="relative mx-14">
         <Swiper
           modules={[Navigation]}
           onSwiper={(swiper) => (swiperRef.current = swiper)} // Store Swiper instance
           loop={true}
           slidesPerView={1}
-          className="px-12"
+          className="px-6 bg-white shadow-lg rounded-lg"
         >
           {testimonials.map((testimonial) => (
             <SwiperSlide key={testimonial.id}>
@@ -216,7 +216,7 @@ export function AmazingExperiencesAwait() {
                     src={testimonial.image}
                     alt={testimonial.name}
                     fill
-                    className="object-cover rounded-lg"
+                    className="object-cover rounded-l-lg"
                   />
                 </div>
                 <div className='md:pt-36'>
@@ -234,13 +234,13 @@ export function AmazingExperiencesAwait() {
           ))}
         </Swiper>
         <button
-          className="absolute top-1/2 -translate-y-1/2 left-4 flex items-center space-x-3 text-primary border border-primary p-2 rounded-lg z-20"
+          className="absolute top-1/2 -translate-y-1/2 -left-14 flex items-center space-x-3 text-primary border border-primary p-2 rounded-lg z-20"
           ref={prevButtonRef}
         >
           <BsArrowLeft className="w-6 h-6" />
         </button>
         <button
-          className="absolute top-1/2 -translate-y-1/2 right-4 flex items-center space-x-3 text-primary border border-primary p-2 rounded-lg z-20"
+          className="absolute top-1/2 -translate-y-1/2 -right-14 flex items-center space-x-3 text-primary border border-primary p-2 rounded-lg z-20"
           ref={nextButtonRef}
         >
           <BsArrowRight className="w-6 h-6" />
