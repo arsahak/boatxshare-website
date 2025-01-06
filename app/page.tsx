@@ -1,4 +1,5 @@
-import AmazingExperiencesAwait from "@/components/home/AmazingExperiencesAwait";
+
+import { AmazingExperiencesAwait } from "@/components/home/AmazingExperiencesAwait";
 import ExclusiveBoatDeals from "@/components/home/ExclusiveBoatDeals";
 import ExploreOurCollection from "@/components/home/ExploreOurCollection";
 import HeroSectionslider from "@/components/home/HeroSectionslider";
