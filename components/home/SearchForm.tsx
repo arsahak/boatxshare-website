@@ -1,59 +1,75 @@
-import React from 'react';
-import { BiMapPin } from 'react-icons/bi';
-import { FaRegUser } from 'react-icons/fa';
-import { IoCalendarNumberOutline } from 'react-icons/io5';
+import { BsPeople } from "react-icons/bs";
+import { LuCalendar } from "react-icons/lu";
+import { SlLocationPin } from "react-icons/sl";
 
 const SearchForm = () => {
-    return (
-        <div className=''>
-            {/* Search Form */}
-        <div className="absolute md:mt-20 z-40 lg:left-16 xl:left-56 2xl:left-[900px] top-[500px] md:top-[530px] lg:top-[80%] bg-white rounded-[20px] p-5 lg:p-10 shadow-lg w-full lg:max-w-4xl lg:mx-auto">
-          <div className="grid grid-cols-3 gap-4">
-            <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-600 mb-1">Where to?</label>
-              <div className="flex items-center space-x-2">
-                <BiMapPin className="w-5 h-5 text-black" />
-                <input
-                  type="text"
-                  placeholder="Dhaka, Bangladesh"
-                  className="w-full focus:outline-none placeholder:text-black placeholder:!font-bold"
-                  defaultValue="Dhaka, Bangladesh"
-                />
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-600 mb-1">When?</label>
-              <div className="flex items-center space-x-2">
-                <IoCalendarNumberOutline className="w-5 h-5 text-black" />
-                <input
-                  type="text"
-                  placeholder="Jan 23 ± 7"
-                  className="w-full focus:outline-none placeholder:text-black placeholder:!font-bold"
-                  defaultValue="Jan 23 ± 7"
-                />
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-600 mb-1">Who's in?</label>
-              <div className="flex items-center space-x-2">
-                <FaRegUser className="w-5 h-5 text-black" />
-                <input
-                  type="text"
-                  placeholder="7 Guests"
-                  className="w-full focus:outline-none placeholder:text-black placeholder:!font-bold"
-                  defaultValue="7 Guests"
-                />
-              </div>
+  return (
+    <div className="md:absolute left-0 right-0 z-10 mt-6 md:mt-0">
+      {/* Search Form */}
+      <div className=" bg-white rounded-xl  shadow w-full md:w-[50%] mx-auto -mt-[4%] px-8 md:px-20 py-10 md:py-14">
+        <div className="flex flex-col md:flex-row items-center justify-between space-y-6  md:space-x-6">
+          <div className="relative w-full">
+            <label
+              htmlFor="location-input"
+              className="text-base font-normal text-gray-600 bg-white px-1 absolute -top-0 left-3 transform -translate-y-1/2"
+            >
+              Where to?
+            </label>
+            <div className="flex items-center border border-gray-300 rounded-lg py-4 px-3 shadow-sm focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
+              <SlLocationPin className="text-gray-700 size-5" />
+              <input
+                id="location-input"
+                type="text"
+                placeholder="Dhaka, Bangladesh"
+                className="w-full focus:outline-none placeholder:font-semibold placeholder:text-gray-800 text-gray-900 bg-transparent pl-2"
+              />
             </div>
           </div>
-          <div className="mt-4 flex justify-center">
-            <button className="bg-[#00C2FF] text-white px-8 py-2 -mb-14 rounded-md hover:bg-[#00B2FF] transition">
-              Search
-            </button>
+
+          <div className="relative w-full">
+            <label
+              htmlFor="location-input"
+              className="text-base font-normal text-gray-600 bg-white px-1 absolute -top-0 left-3 transform -translate-y-1/2"
+            >
+              When?
+            </label>
+            <div className="flex items-center border border-gray-300 rounded-lg py-4 px-3 shadow-sm focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
+              <LuCalendar className="text-gray-700 size-5" />
+              <input
+                id="location-input"
+                type="text"
+                placeholder="Jan 23 ± 7"
+                className="w-full focus:outline-none placeholder:font-semibold placeholder:text-gray-800 text-gray-900 bg-transparent pl-2"
+              />
+            </div>
+          </div>
+
+          <div className="relative w-full">
+            <label
+              htmlFor="location-input"
+              className="text-base font-normal text-gray-600 bg-white px-1 absolute -top-0 left-3 transform -translate-y-1/2"
+            >
+              Who’s in?
+            </label>
+            <div className="flex items-center border border-gray-300 rounded-lg py-4 px-3 shadow-sm focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
+              <BsPeople className="text-gray-700 size-5" />
+              <input
+                id="location-input"
+                type="text"
+                placeholder="7 Guests"
+                className="w-full focus:outline-none placeholder:font-semibold placeholder:text-gray-800 text-gray-900 bg-transparent pl-2"
+              />
+            </div>
           </div>
         </div>
+        <div className="flex justify-center md:absolute -bottom-6 right-0 left-0 mt-8 md:mt-0">
+          <button className="bg-primary text-white px-16 py-3 rounded-lg hover:bg-hoverColor transition text-lg">
+            Search
+          </button>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default SearchForm;

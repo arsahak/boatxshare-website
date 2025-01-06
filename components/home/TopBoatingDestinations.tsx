@@ -9,14 +9,14 @@ const TopBoatingDestinations = () => {
     <div className="bg-secondary text-black">
       <div className="container py-10 md:py-20">
         <div className="flex justify-center flex-col items-center space-x-4 md:space-x-8 ">
-          <h2 className=" font-bold text-4xl leading-normal">
+          <h2 className=" font-bold text-2xl md:text-4xl leading-snug text-center">
             Top Boating Destinations
           </h2>
-          <p className="text-lg font-normal">
+          <p className="text-base  md:text-lg font-normal text-center md:mt-0">
             Explore our most iconic locations
           </p>
         </div>
-        <div className="grid grid-cols-4 items-center justify-between gap-8 mt-14">
+        <div className="grid grid-cols-1 md:grid-cols-4 items-center justify-between gap-8 mt-8 md:mt-14">
           {topDestination.map((data, index) => (
             <div
               key={index}

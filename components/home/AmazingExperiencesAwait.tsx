@@ -135,117 +135,121 @@
 
 // export default memo(AmazingExperiencesAwait);
 
+"use client";
 
-
-'use client'
-
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper/modules'
-import Image from 'next/image'
-import { BsArrowLeft, BsArrowRight } from 'react-icons/bs'
-import { useEffect, useRef } from 'react'
+import Image from "next/image";
+import { useEffect, useRef } from "react";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
+import "swiper/css";
+import "swiper/css/navigation";
 
 interface Testimonial {
-  id: number
-  name: string
-  image: string
-  text: string
+  id: number;
+  name: string;
+  image: string;
+  text: string;
 }
 
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: 'Becky Nelson',
-    image: "/assets/home/hero-img/hero-bluesky.jpg",
-    text: 'Ask agreed answer rather joy nature admire wisdom. Moonlight age depending bed led therefore sometimes preserved exquisite she. An fail up so shot leaf wise in. Minister highest his arrived for put and. Hopes lived by rooms oh in no death house.'
+    name: "Becky Nelson",
+    image: "/assets/home/top/slider-image.jpg",
+    text: "Ask agreed answer rather joy nature admire wisdom. Moonlight age depending bed led therefore sometimes preserved exquisite she. An fail up so shot leaf wise in. Minister highest his arrived for put and. Hopes lived by rooms oh in no death house. An fail up so shot leaf wise in. Minister highest his arrived for put and. Hopes lived by rooms oh in no death house.",
   },
   {
     id: 2,
-    name: 'John Smith',
-    image: "/assets/home/hero-img/hero-bluesky.jpg",
-    text: 'Wise busy past both park when an ye no. Nay likely her length sooner thrown sex lively income. The expense windows adapted sir. Wrong widen drawn.'
+    name: "John Smith",
+    image: "/assets/home/top/slider-image.jpg",
+    text: "Wise busy past both park when an ye no. Nay likely her length sooner thrown sex lively income. The expense windows adapted sir. Wrong widen drawn. past both park when an ye no. Nay likely her length sooner thrown sex lively income. The expense windows adapted sir. Wrong widen drawn. ",
   },
   {
     id: 3,
-    name: 'Sarah Johnson',
-    image: "/assets/home/hero-img/hero-bluesky.jpg",
-    text: 'Village did removed enjoyed explain nor ham saw calling talking. Securing as informed declared or margaret. Joy horrible moreover man feelings own shy.'
-  }
-]
+    name: "Sarah Johnson",
+    image: "/assets/home/top/slider-image.jpg",
+    text: "Village did removed enjoyed explain nor ham saw calling talking. Securing as informed declared or margaret. Joy horrible moreover man feelings own shy. Village did removed enjoyed explain nor ham saw calling talking. Securing as informed declared or margaret. Joy horrible moreover man feelings own shy.",
+  },
+];
 
 export function AmazingExperiencesAwait() {
-  const prevButtonRef = useRef<HTMLButtonElement | null>(null)
-  const nextButtonRef = useRef<HTMLButtonElement | null>(null)
-  const swiperRef = useRef<any>(null)
+  const prevButtonRef = useRef<HTMLButtonElement | null>(null);
+  const nextButtonRef = useRef<HTMLButtonElement | null>(null);
+  const swiperRef = useRef<any>(null);
 
   useEffect(() => {
     if (swiperRef.current && prevButtonRef.current && nextButtonRef.current) {
-      swiperRef.current.params.navigation.prevEl = prevButtonRef.current
-      swiperRef.current.params.navigation.nextEl = nextButtonRef.current
-      swiperRef.current.navigation.init()
-      swiperRef.current.navigation.update()
+      swiperRef.current.params.navigation.prevEl = prevButtonRef.current;
+      swiperRef.current.params.navigation.nextEl = nextButtonRef.current;
+      swiperRef.current.navigation.init();
+      swiperRef.current.navigation.update();
     }
-  }, [])
+  }, []);
 
   return (
-    <div className="container mx-auto pt-10">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-bold text-[#2D1A4E] mb-2">
-          Top Boating Destinations
-        </h2>
-        <p className="text-gray-600">Explore our most iconic locations</p>
-      </div>
-
-      <div className="relative mx-14">
-        <Swiper
-          modules={[Navigation]}
-          onSwiper={(swiper) => (swiperRef.current = swiper)} // Store Swiper instance
-          loop={true}
-          slidesPerView={1}
-          className="px-6 bg-white shadow-lg rounded-lg"
-        >
-          {testimonials.map((testimonial) => (
-            <SwiperSlide key={testimonial.id}>
-              <div className="grid md:grid-cols-2 gap-8 items-start">
-                <div className="aspect-[4/5] relative w-full">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    fill
-                    className="object-cover rounded-l-lg"
-                  />
-                </div>
-                <div className='md:pt-36'>
-                  <div className="flex flex-col justify-center">
-                    <h3 className="text-2xl font-medium text-gray-900 mb-4">
-                      {testimonial.name}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      {testimonial.text}
-                    </p>
+    <div className="bg-white py-10 md:py-20">
+      <div className="container ">
+        <div className="text-center mb-12">
+          <div className="flex justify-center flex-col items-center space-x-4 md:space-x-8 ">
+            <h2 className=" font-bold text-2xl md:text-4xl leading-snug text-center">
+              Top Boating Destinations
+            </h2>
+            <p className="text-base  md:text-lg font-normal text-center md:mt-0">
+              Explore our most iconic locations
+            </p>
+          </div>
+        </div>
+        <div className="relative mx-14">
+          <Swiper
+            modules={[Navigation]}
+            onSwiper={(swiper) => (swiperRef.current = swiper)} // Store Swiper instance
+            loop={true}
+            slidesPerView={1}
+            className="px-6 bg-white shadow-lg rounded-lg"
+          >
+            {testimonials.map((testimonial) => (
+              <SwiperSlide key={testimonial.id}>
+                <div className="flex flex-col md:flex-row items-center justify-between space-x-4 md:space-x-8">
+                  <div className="w-full">
+                    <Image
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      height={600}
+                      width={600}
+                      className="w-[300px] md:w-[600px] h-auto rounded-t-lg md:rounded-l-lg"
+                    />
+                  </div>
+                  <div className="w-full p-8 md:pr-16 rounded-r-lg">
+                    <div className="">
+                      <h2 className="font-semibold text-2xl md:text-3xl mt-4 text-center md:text-left">
+                        {testimonial?.name}
+                      </h2>
+                      <p className="font-normal text-base md:text-lg mt-4 text-center md:text-left">
+                        {testimonial?.text}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        <button
-          className="absolute top-1/2 -translate-y-1/2 -left-14 flex items-center space-x-3 text-primary border border-primary p-2 rounded-lg z-20"
-          ref={prevButtonRef}
-        >
-          <BsArrowLeft className="w-6 h-6" />
-        </button>
-        <button
-          className="absolute top-1/2 -translate-y-1/2 -right-14 flex items-center space-x-3 text-primary border border-primary p-2 rounded-lg z-20"
-          ref={nextButtonRef}
-        >
-          <BsArrowRight className="w-6 h-6" />
-        </button>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <button
+            className="absolute top-1/2 -translate-y-1/2 -left-14 md:-left-24 flex items-center space-x-3 text-primary border border-primary p-2 rounded-lg z-20 hover:bg-primary hover:text-white"
+            ref={prevButtonRef}
+          >
+            <BsArrowLeft className="w-6 h-6" />
+          </button>
+          <button
+            className="absolute top-1/2 -translate-y-1/2 -right-14 md:-right-24 flex items-center space-x-3 text-primary border border-primary p-2 rounded-lg z-20 hover:bg-primary hover:text-white"
+            ref={nextButtonRef}
+          >
+            <BsArrowRight className="w-6 h-6" />
+          </button>
+        </div>
       </div>
     </div>
-  )
+  );
 }
