@@ -1,7 +1,7 @@
 "use client"
 export default function BoatLocation() {
     return (
-      <div className=" p-6">
+      <div className="">
         <div className="space-y-2 mb-4">
           <h2 className="text-xl font-semibold text-[#1A1A1A]">Boat location</h2>
           <p className="text-gray-600 text-sm">

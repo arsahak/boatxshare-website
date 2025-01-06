@@ -83,8 +83,8 @@ const BoatDetails = () => {
                 </div>
             </main>
             <div className="py-10">
-                <div className="max-w-[1320px] mx-auto">
-                    <div className=" p-6">
+                <div className="container mx-auto">
+                    <div className="">
                         {/* Header */}
                         <h1 className="text-[#1A1A1A] text-2xl md:text-3xl font-bold mb-6">
                             FREE Hour when you book 4 on 37' Rinker <br /> Fiesta Yacht!!!!
@@ -199,7 +199,7 @@ const BoatDetails = () => {
                         </div>
                     </div>
                     {/* content */}
-                    <div className="grid lg:grid-cols-3 gap-8 p-6">
+                    <div className="grid lg:grid-cols-3 gap-8 mt-10 2xl:mt-20 ">
                         {/* Left Column */}
                         <div className="space-y-8 lg:col-span-2">
                             {/* The Boat Section */}
@@ -249,7 +249,7 @@ const BoatDetails = () => {
                         </div>
 
                         {/* Right Column - Booking Card */}
-                        <div className="bg-white rounded-2xl shadow-lg p-6 lg:col-span-1 lg:h-[500px] xl:h-[485px]">
+                        <div className="bg-white rounded-2xl shadow-lg p-6 lg:col-span-1 lg:h-[550px] xl:h-[500px]">
                             <div className="flex justify-between items-start mb-6">
                                 <div>
                                     <h3 className="text-2xl font-semibold">$450.87</h3>

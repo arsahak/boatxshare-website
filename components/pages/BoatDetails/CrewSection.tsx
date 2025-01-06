@@ -5,7 +5,7 @@ import { GoDotFill } from 'react-icons/go'
 
 export default function CrewSection() {
   return (
-    <div className=" p-6">
+    <div className="">
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <h2 className="text-xl font-semibold mb-4">Your crew</h2>

@@ -192,7 +192,7 @@ export function AmazingExperiencesAwait() {
   }, [])
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
+    <div className="container mx-auto">
       <div className="text-center mb-12">
         <h2 className="text-3xl font-bold text-[#2D1A4E] mb-2">
           Top Boating Destinations
@@ -211,7 +211,7 @@ export function AmazingExperiencesAwait() {
           {testimonials.map((testimonial) => (
             <SwiperSlide key={testimonial.id}>
               <div className="grid md:grid-cols-2 gap-8 items-start">
-                <div className="aspect-[4/5] relative w-full h-[300px] md:h-[500px]">
+                <div className="aspect-[4/5] relative w-full">
                   <Image
                     src={testimonial.image}
                     alt={testimonial.name}

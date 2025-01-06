@@ -62,7 +62,7 @@ export default function ThingsToKnow() {
   };
 
   return (
-    <div className=" p-6">
+    <div className="">
       <div className='grid grid-cols-3 gap-5'>
         <h2 className="col-span-1 text-lg font-bold text-gray-900">Things to know</h2>
         <div className="col-span-2 space-y-[1px]">

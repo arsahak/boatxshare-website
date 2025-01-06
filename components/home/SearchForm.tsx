@@ -7,7 +7,7 @@ const SearchForm = () => {
     return (
         <div className=''>
             {/* Search Form */}
-        <div className="absolute md:mt-20 z-40 lg:left-16 xl:left-56 top-[500px] md:top-[530px] lg:top-[80%] bg-white rounded-[20px] p-5 lg:p-10 shadow-lg w-full lg:max-w-4xl lg:mx-auto">
+        <div className="absolute md:mt-20 z-40 lg:left-16 xl:left-56 2xl:left-[900px] top-[500px] md:top-[530px] lg:top-[80%] bg-white rounded-[20px] p-5 lg:p-10 shadow-lg w-full lg:max-w-4xl lg:mx-auto">
           <div className="grid grid-cols-3 gap-4">
             <div className="flex flex-col">
               <label className="text-sm font-medium text-gray-600 mb-1">Where to?</label>

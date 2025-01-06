@@ -73,7 +73,7 @@ const reviews: Review[] = [
 
 export default function Review() {
     return (
-        <div className=" p-6">
+        <div className="">
             <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
                 <div className="col-span-1 mb-8 relative">
                     <div className="mb-1">
