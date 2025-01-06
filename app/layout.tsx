@@ -16,7 +16,7 @@ const opensans = Open_Sans({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://hazel-ecommerce-website.vercel.app"),
+  metadataBase: new URL("https://boatxshare-website.vercel.app"),
 };
 
 export default function RootLayout({
