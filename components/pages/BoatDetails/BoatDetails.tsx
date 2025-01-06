@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image";
-import { BiAward, BiBadgeCheck, BiCalendar, BiMinus, BiPlus, BiRuler } from "react-icons/bi";
+import { BiAward, BiBadgeCheck, BiCalendar, BiMinus, BiPlus, BiRuler, BiTag } from "react-icons/bi";
 import { BsStar } from "react-icons/bs";
 import { FiUser } from "react-icons/fi";
 import BoatLocation from "./BoatLoaction";
@@ -11,6 +11,8 @@ import CrewSection from "./CrewSection";
 import { motion } from "framer-motion";
 import heroImge from '@/public/assets/home/hero-img/heroSea.png'
 import ThingsToKnow from "./ThingsToKnow";
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+import { GiBoatEngine } from "react-icons/gi";
 
 
 const BoatDetails = () => {
@@ -20,6 +22,34 @@ const BoatDetails = () => {
         "/assets/home/explor/Container.jpg",
         "/assets/home/explor/Container.jpg",
     ];
+    const specs = [
+        {
+          icon: BiCalendar,
+          label: "Year",
+          value: "2000"
+        },
+        {
+          icon: BiRuler,
+          label: "Length",
+          value: "37 ft."
+        },
+        {
+          icon: GiBoatEngine,
+          label: "Make",
+          value: "Rinker Boats"
+        },
+        {
+          icon: BiTag,
+          label: "Model",
+          value: "340 Fiesta Vee"
+        },
+        {
+          icon: FiUser,
+          label: "Capacity",
+          value: "12"
+        }
+      ]
+    
     return (
         <div>
             {/* hero */}
@@ -38,18 +68,18 @@ const BoatDetails = () => {
 
                 {/* Hero Content */}
                 <div className="relative z-10 pt-32 pb-16 px-4">
-                        <div className="container">
-                            <div className="flex items-center justify-center mt-14">
-                                <div className="w-[80%] text-center text-white">
-                                    <h1
-                                        className={`text-[50px] md:text-[80px] font-bold  leading-[55px] md:leading-[85px] tracking-normal`}
-                                    >
-                                        Catamaran
-                                    </h1>
-                                    <p >Home/<span className="text-primary">Catamaran</span></p>
-                                </div>
+                    <div className="container">
+                        <div className="flex items-center justify-center mt-14">
+                            <div className="w-[80%] text-center text-white">
+                                <h1
+                                    className={`text-[50px] md:text-[80px] font-bold  leading-[55px] md:leading-[85px] tracking-normal`}
+                                >
+                                    Catamaran
+                                </h1>
+                                <p >Home/<span className="text-primary">Catamaran</span></p>
                             </div>
                         </div>
+                    </div>
                 </div>
             </main>
             <div className="py-10">
@@ -64,7 +94,7 @@ const BoatDetails = () => {
                         <div className="flex flex-wrap gap-10 mb-6">
                             <div className="flex flex-col items-center">
                                 <div className="flex items-center gap-2">
-                                    <BsStar className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                                    <BsStar className="w-6 h-6 fill-yellow-400 text-yellow-400" />
                                     <div>
                                         <p className="font-bold">4.9</p>
                                         <p className="text-sm text-gray-600">150+ Reviews</p>
@@ -75,7 +105,7 @@ const BoatDetails = () => {
 
                             <div className="flex flex-col items-center ">
                                 <div className="flex items-center gap-2">
-                                    <BiRuler className="w-5 h-5 text-gray-700" />
+                                    <BiRuler className="w-6 h-6 text-gray-700" />
                                     <div>
                                         <p className="font-bold">87'</p>
                                         <p className="text-sm text-gray-600">Boat length</p>
@@ -86,7 +116,7 @@ const BoatDetails = () => {
 
                             <div className="flex flex-col items-center text-center">
                                 <div className="flex items-center gap-2">
-                                    <FiUser className="w-5 h-5 text-gray-700" />
+                                    <FiUser className="w-6 h-6 text-gray-700" />
                                     <div>
                                         <p className="font-bold">Up to 12</p>
                                         <p className="text-sm text-gray-600">Passengers</p>
@@ -96,7 +126,7 @@ const BoatDetails = () => {
 
                             <div className="flex flex-col items-center ">
                                 <div className="flex items-center gap-2">
-                                    <BiAward className="w-5 h-5 text-gray-700" />
+                                    <BiAward className="w-6 h-6 text-gray-700" />
                                     <div>
                                         <p className="font-bold">Certified</p>
                                         <p className="text-sm text-gray-600">The boat is insured with a deposit</p>
@@ -106,7 +136,7 @@ const BoatDetails = () => {
 
                             <div className="flex flex-col items-center ">
                                 <div className="flex items-center gap-2">
-                                    <BiBadgeCheck className="w-5 h-5 text-gray-700" />
+                                    <BiBadgeCheck className="w-6 h-6 text-gray-700" />
                                     <div>
                                         <p className="font-bold">95%</p>
                                         <p className="text-sm text-gray-600">Return & response rate</p>
@@ -169,16 +199,16 @@ const BoatDetails = () => {
                         </div>
                     </div>
                     {/* content */}
-                    <div className="grid md:grid-cols-2 gap-8 p-6">
+                    <div className="grid lg:grid-cols-3 gap-8 p-6">
                         {/* Left Column */}
-                        <div className="space-y-8">
+                        <div className="space-y-8 lg:col-span-2">
                             {/* The Boat Section */}
                             <div>
                                 <h2 className="text-xl font-semibold mb-3">The boat</h2>
                                 <p className="text-gray-600 text-sm leading-relaxed">
                                     Book 4 hours on our luxurious 37' Rinker Fiesta Yacht and get an extra hour absolutely FREE! That's 5
                                     hours of ultimate fun and relaxation at no extra cost, for $399 per person for full 3Day 2Night in Khulna,
-                                    Khulna Division.
+                                    Khulna Division. Book 4 hours on our luxurious 37' Rinker Fiesta Yacht and get an extra hour absolutely FREE!
                                 </p>
                             </div>
 
@@ -194,7 +224,7 @@ const BoatDetails = () => {
                                         'Perfect for parties, family gatherings, or a romantic getaway'
                                     ].map((amenity, index) => (
                                         <li key={index} className="flex items-center gap-3 text-sm text-gray-600">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-gray-600" />
+                                            <IoIosCheckmarkCircleOutline />
                                             {amenity}
                                         </li>
                                     ))}
@@ -204,17 +234,14 @@ const BoatDetails = () => {
                             {/* Specifications Section */}
                             <div>
                                 <h2 className="text-xl font-semibold mb-3">Specifications</h2>
-                                <div className="space-y-3">
-                                    {[
-                                        { label: 'Year', value: '2000' },
-                                        { label: 'Length', value: '37 ft.' },
-                                        { label: 'Make', value: 'Rinker Boats' },
-                                        { label: 'Model', value: '340 Fiesta Vee' },
-                                        { label: 'Capacity', value: '12' }
-                                    ].map((spec, index) => (
-                                        <div key={index} className="flex items-center text-sm">
-                                            <span className="w-24 text-gray-600">{spec.label}</span>
-                                            <span className="font-medium">{spec.value}</span>
+                                <div className="space-y-4">
+                                    {specs.map((spec) => (
+                                        <div key={spec.label} className="flex items-center gap-3">
+                                            <spec.icon className="w-[18px] h-[18px] stroke-[1.5px] text-gray-500 shrink-0" />
+                                            <div className="flex items-center gap-10">
+                                                <span className="text-[14px] text-gray-700 w-14">{spec.label}</span>
+                                                <span className="text-[14px] font-medium">{spec.value}</span>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
@@ -222,7 +249,7 @@ const BoatDetails = () => {
                         </div>
 
                         {/* Right Column - Booking Card */}
-                        <div className="bg-white rounded-2xl shadow-lg p-6">
+                        <div className="bg-white rounded-2xl shadow-lg p-6 lg:col-span-1 lg:h-[500px] xl:h-[485px]">
                             <div className="flex justify-between items-start mb-6">
                                 <div>
                                     <h3 className="text-2xl font-semibold">$450.87</h3>
@@ -268,7 +295,7 @@ const BoatDetails = () => {
                             </div>
 
                             {/* Send Inquiry Button */}
-                            <button className="w-full bg-[#7DDCD9] text-black font-medium py-3 rounded-lg mb-6">
+                            <button className="w-full bg-primary text-black font-medium py-3 rounded-lg mb-6">
                                 Send Inquiry
                             </button>
 
@@ -296,7 +323,7 @@ const BoatDetails = () => {
                     {/* location */}
                     <BoatLocation />
                     <CrewSection />
-                    <ThingsToKnow/>
+                    <ThingsToKnow />
                     <SimilarBoat />
                 </div>
             </div>
