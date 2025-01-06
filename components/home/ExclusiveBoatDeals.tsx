@@ -60,7 +60,7 @@ const ExclusiveBoatDeals = () => {
                     $2,500/day
                   </h3>{" "}
                   <Link
-                    href={`/`}
+                    href={`/boat/${data?.id}`}
                     className={`cursor-pointer text-lg lg:text-[17px]  transition-all duration-300  bg-primary text-white py-2.5 px-4 rounded uppercase`}
                   >
                     Book Now
