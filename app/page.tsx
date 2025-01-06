@@ -5,6 +5,7 @@ import ExploreOurCollection from "@/components/home/ExploreOurCollection";
 import HeroSectionslider from "@/components/home/HeroSectionslider";
 import SearchForm from "@/components/home/SearchForm";
 import TopBoatingDestinations from "@/components/home/TopBoatingDestinations";
+import { VideoPlaySection } from "@/components/home/VideoPlaySection";
 
 export const metadata = {
   title: "Hazel Fashion Store",
@@ -29,6 +30,7 @@ export default function Home() {
       <ExclusiveBoatDeals />
       <TopBoatingDestinations />
       <AmazingExperiencesAwait />
+      <VideoPlaySection/>
     </div>
   );
 }
