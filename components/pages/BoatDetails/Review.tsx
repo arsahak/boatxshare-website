@@ -84,7 +84,7 @@ export default function Review() {
                             <span className="ml-1">(129 ratings)</span>
                         </div>
                     </div>
-                    <button className="absolute mt-8 bottom-0 border border-primary rounded-lg py-2 px-4 text-sm text-center text-primary hover:bg-gray-50">
+                    <button className="md:absolute mt-8 bottom-0 border border-primary rounded-lg py-2 px-4 text-sm text-center text-primary hover:bg-gray-50">
                         SEE ALL 129 REVIEWS
                     </button>
                 </div>

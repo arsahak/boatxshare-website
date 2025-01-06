@@ -8,7 +8,7 @@ import { RiShip2Line } from "react-icons/ri";
 const ExploreOurCollection = () => {
   return (
     <div className="bg-secondary text-black">
-      <div className="container py-10 md:py-20">
+      <div className="container py-10 md:pb-20 pt-36">
         <div className="flex justify-between items-center space-x-4 md:space-x-8 ">
           <h2 className=" font-bold text-4xl leading-normal">
             Explore Our Collection <br /> of Premium Luxury Yachts

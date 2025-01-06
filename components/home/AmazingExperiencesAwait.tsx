@@ -219,7 +219,7 @@ export function AmazingExperiencesAwait() {
                     className="object-cover rounded-lg"
                   />
                 </div>
-                <div className='pt-36'>
+                <div className='md:pt-36'>
                   <div className="flex flex-col justify-center">
                     <h3 className="text-2xl font-medium text-gray-900 mb-4">
                       {testimonial.name}

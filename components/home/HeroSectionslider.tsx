@@ -142,53 +142,6 @@ const HeroSectionslider = () => {
           </div>
         </motion.div>
 
-        {/* Search Form */}
-        <div className="absolute mt-10 z-40 left-56 bg-white rounded-[20px] p-10 shadow-lg w-full max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-600 mb-1">Where to?</label>
-              <div className="flex items-center space-x-2">
-                <BiMapPin className="w-5 h-5 text-black" />
-                <input
-                  type="text"
-                  placeholder="Dhaka, Bangladesh"
-                  className="w-full focus:outline-none placeholder:text-black placeholder:!font-bold"
-                  defaultValue="Dhaka, Bangladesh"
-                />
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-600 mb-1">When?</label>
-              <div className="flex items-center space-x-2">
-                <IoCalendarNumberOutline className="w-5 h-5 text-black" />
-                <input
-                  type="text"
-                  placeholder="Jan 23 ± 7"
-                  className="w-full focus:outline-none placeholder:text-black placeholder:!font-bold"
-                  defaultValue="Jan 23 ± 7"
-                />
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <label className="text-sm font-medium text-gray-600 mb-1">Who's in?</label>
-              <div className="flex items-center space-x-2">
-                <FaRegUser className="w-5 h-5 text-black" />
-                <input
-                  type="text"
-                  placeholder="7 Guests"
-                  className="w-full focus:outline-none placeholder:text-black placeholder:!font-bold"
-                  defaultValue="7 Guests"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="mt-4 flex justify-center">
-            <button className="bg-[#00C2FF] text-white px-8 py-2 -mb-14 rounded-md hover:bg-[#00B2FF] transition">
-              Search
-            </button>
-          </div>
-        </div>
-
       </div>
     </main>
   );

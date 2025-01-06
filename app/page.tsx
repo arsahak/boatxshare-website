@@ -3,6 +3,7 @@ import { AmazingExperiencesAwait } from "@/components/home/AmazingExperiencesAwa
 import ExclusiveBoatDeals from "@/components/home/ExclusiveBoatDeals";
 import ExploreOurCollection from "@/components/home/ExploreOurCollection";
 import HeroSectionslider from "@/components/home/HeroSectionslider";
+import SearchForm from "@/components/home/SearchForm";
 import TopBoatingDestinations from "@/components/home/TopBoatingDestinations";
 
 export const metadata = {
@@ -23,6 +24,7 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden">
       <HeroSectionslider />
+      <SearchForm/>
       <ExploreOurCollection />
       <ExclusiveBoatDeals />
       <TopBoatingDestinations />
