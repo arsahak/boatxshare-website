@@ -20,7 +20,7 @@ const HeroSectionslider = () => {
       <div className="relative h-[450px] md:h-[600px] bg-[#F5F1EB]">
         <div className="">
           <Image
-            src={"/assets/home/heroimage.jpg"}
+            src={"/assets/home/hero-img/herobg.jpg"}
             alt="home-banner"
             layout="fill"
             objectFit="cover bg-top"
