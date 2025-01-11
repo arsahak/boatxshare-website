@@ -55,7 +55,7 @@ const ExploreOurCollection = () => {
                     $2,500/day
                   </h3>{" "}
                   <Link
-                    href={`/`}
+                    href={`/blog/${data?.slug}`}
                     className={`cursor-pointer lg:text-lg duration-300 uppercase bg-primary text-white px-6 py-3 rounded-lg hover:bg-hoverColor transition text-lg`}
                   >
                     Book Now

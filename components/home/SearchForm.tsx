@@ -7,7 +7,7 @@ const SearchForm = () => {
     <div className="md:absolute left-0 right-0 z-10 mt-6 md:mt-0">
       {/* Search Form */}
       <div className=" bg-white rounded-xl  shadow w-full md:w-[50%] mx-auto -mt-[4%] px-8 md:px-20 py-10 md:py-14">
-        <div className="flex flex-col md:flex-row items-center justify-between space-y-6  md:space-x-6">
+        <div className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0  space-x-0  md:space-x-6">
           <div className="relative w-full">
             <label
               htmlFor="location-input"
@@ -29,7 +29,7 @@ const SearchForm = () => {
           <div className="relative w-full">
             <label
               htmlFor="location-input"
-              className="text-base font-normal text-gray-600 bg-white px-1 absolute -top-0 left-3 transform -translate-y-1/2"
+              className="text-base font-normal text-gray-600 bg-white px-1 absolute  left-3 transform -translate-y-1/2"
             >
               When?
             </label>
@@ -47,7 +47,7 @@ const SearchForm = () => {
           <div className="relative w-full">
             <label
               htmlFor="location-input"
-              className="text-base font-normal text-gray-600 bg-white px-1 absolute -top-0 left-3 transform -translate-y-1/2"
+              className="text-base font-normal text-gray-600 bg-white px-1 absolute  left-3 transform -translate-y-1/2"
             >
               Who’s in?
             </label>

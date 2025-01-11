@@ -2,6 +2,7 @@ export const datas = [
   {
     id: 1,
     title: "Motor Yacht",
+    slug: "motor-yacht",
     desc: "Speed and luxury combined for fast, stylish escapes on the open sea",
     guest: 12,
     cabins: 6,
@@ -12,6 +13,7 @@ export const datas = [
   {
     id: 2,
     title: "Sailing Yacht",
+    slug: "sailing-yacht",
     desc: "Embrace the calm of classic sailing on a wind-powered journey",
     guest: 8,
     cabins: 4,
@@ -22,6 +24,7 @@ export const datas = [
   {
     id: 3,
     title: "Catamaran",
+    slug: "catamaran",
     desc: "Spacious and stable, ideal for family trips and group adventures",
     guest: 8,
     cabins: 4,
@@ -32,6 +35,7 @@ export const datas = [
   {
     id: 4,
     title: "Motor Yacht",
+    slug: "motor-yacht",
     desc: "Speed and luxury combined for fast, stylish escapes on the open sea",
     guest: 12,
     cabins: 6,
@@ -42,6 +46,7 @@ export const datas = [
   {
     id: 5,
     title: "Sailing Yacht",
+    slug: "sailing-yacht",
     desc: "Embrace the calm of classic sailing on a wind-powered journey",
     guest: 8,
     cabins: 4,
@@ -52,6 +57,7 @@ export const datas = [
   {
     id: 6,
     title: "Catamaran",
+    slug: "catamaran",
     desc: "Spacious and stable, ideal for family trips and group adventures",
     guest: 8,
     cabins: 4,

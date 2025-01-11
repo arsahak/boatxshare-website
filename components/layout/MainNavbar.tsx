@@ -7,6 +7,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { IoReorderThreeOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
+import NavbarDropdown from "../shared/NavbarDropdown";
 
 const debounce = <T extends (...args: any[]) => void>(
   func: T,
@@ -27,6 +28,7 @@ const MainNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const [navbarColor, setNavbarColor] = useState(false);
+  const [boatExploreFlag, setBoatExploreFlag] = useState(false);
 
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
@@ -156,19 +158,32 @@ const MainNavbar = () => {
                 navbarColor ? "text-black" : "text-white"
               }`}
             >
-              <div className="flex items-center space-x-1 ">
-                <Image
-                  src={"/assets/home/navbar-icon/explore-icon.png"}
-                  alt="usd icon"
-                  width={100}
-                  height={100}
-                  quality={90}
-                  className="cursor-pointer w-[35px] h-[35px] "
+              <div className="relative inline-block text-left">
+                <button
+                  className="flex items-center space-x-2 cursor-pointer focus:outline-none"
+                  onClick={() => setBoatExploreFlag(!boatExploreFlag)}
+                >
+                  <Image
+                    src={"/assets/home/navbar-icon/explore-icon.png"}
+                    alt="Explore icon"
+                    width={35}
+                    height={35}
+                    quality={90}
+                    className="cursor-pointer"
+                  />
+                  <h3 className="text-base font-normal">Explore</h3>
+                  <IoIosArrowDown
+                    className={`transition-transform ${
+                      boatExploreFlag ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                <NavbarDropdown
+                  boatExploreFlag={boatExploreFlag}
+                  setBoatExploreFlag={setBoatExploreFlag}
                 />
-                <h3 className="text-base font-medium">Explore</h3>{" "}
-                <IoIosArrowDown className="size-5 font-bold" />
               </div>
-              <div className="flex items-center space-x-1 ">
+              <div className="flex items-center space-x-1 cursor-pointer">
                 <Image
                   src={"/assets/home/navbar-icon/list-your-boat.png"}
                   alt="usd icon"
@@ -177,11 +192,11 @@ const MainNavbar = () => {
                   quality={90}
                   className="cursor-pointer w-[35px] h-[35px] "
                 />
-                <h3 className="text-base font-medium pl-1">List Your Boat</h3>{" "}
-                <IoIosArrowDown className="size-5 font-bold" />
+                <h3 className="text-base font-normal pl-1">List Your Boat</h3>{" "}
+                {/* <IoIosArrowDown className="size-5 font-bold" /> */}
               </div>
 
-              <div className="flex items-center space-x-1">
+              <div className="flex items-center space-x-1 cursor-pointer">
                 <Image
                   src={"/assets/home/navbar-icon/world.png"}
                   alt="usd icon"
@@ -190,11 +205,11 @@ const MainNavbar = () => {
                   quality={90}
                   className="cursor-pointer w-[18px] h-[18px] "
                 />
-                <h3 className="text-base font-medium">EN</h3>{" "}
+                <h3 className="text-base font-normal">EN</h3>{" "}
                 <IoIosArrowDown className="size-5 font-bold" />
               </div>
 
-              <div className="flex items-center space-x-1 ">
+              <div className="flex items-center space-x-1 cursor-pointer">
                 <Image
                   src={"/assets/home/navbar-icon/usd.png"}
                   alt="usd icon"
@@ -203,11 +218,11 @@ const MainNavbar = () => {
                   quality={90}
                   className="cursor-pointer w-[18px] h-[18px] "
                 />
-                <h3 className="text-base font-medium">USD</h3>{" "}
+                <h3 className="text-base font-normal">USD</h3>{" "}
                 <IoIosArrowDown className="size-5 font-bold" />
               </div>
 
-              <div className="hidden lg:block">
+              <div className="hidden lg:block cursor-pointer">
                 <Link
                   href={`/`}
                   className={`cursor-pointer hover:bg-primary hover:border-primary hover:text-white px-7 py-2.5 rounded-lg  transition text-lg border border-primary${
@@ -219,7 +234,7 @@ const MainNavbar = () => {
                   Sign In
                 </Link>
               </div>
-              <div className="hidden lg:block ">
+              <div className="hidden lg:block cursor-pointer">
                 <Link
                   href={`/`}
                   className={`cursor-pointer bg-primary text-white px-4 py-3 rounded-lg hover:bg-hoverColor transition text-base`}
