@@ -2,12 +2,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { IoIosArrowDown } from "react-icons/io";
-
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { IoIosArrowDown } from "react-icons/io";
 import { IoReorderThreeOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
-import NavbarDropdown from "../shared/NavbarDropdown";
+import NavbarCurrenciesDropdown from "../shared/NavbarCurrenciesDropdown";
+import { default as NavbarDropdown } from "../shared/NavbarDropdown";
+import NavbarLanguageDropdown from "../shared/NavbarLanguageDropdown";
 
 const debounce = <T extends (...args: any[]) => void>(
   func: T,
@@ -29,6 +31,11 @@ const MainNavbar = () => {
   const pathname = usePathname();
   const [navbarColor, setNavbarColor] = useState(false);
   const [boatExploreFlag, setBoatExploreFlag] = useState(false);
+  const [lanFlag, setLanFlag] = useState(false);
+  const [lanValue, setLanValue] = useState("En");
+
+  const [currenciesFlag, setCurrenciesFlag] = useState(false);
+  const [currenciesValue, setCurrenciesValue] = useState("USD");
 
   const [isDropdownVisible, setDropdownVisible] = useState(false);
 
@@ -78,6 +85,12 @@ const MainNavbar = () => {
       document.body.style.overflow = "auto";
     };
   }, [isMenuOpen]);
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang); // Change the active language
+  };
 
   return (
     <section className={`relative z-50`}>
@@ -173,7 +186,7 @@ const MainNavbar = () => {
                   />
                   <h3 className="text-base font-normal">Explore</h3>
                   <IoIosArrowDown
-                    className={`transition-transform ${
+                    className={`transition-transform size-5 font-bold ${
                       boatExploreFlag ? "rotate-180" : ""
                     }`}
                   />
@@ -183,7 +196,10 @@ const MainNavbar = () => {
                   setBoatExploreFlag={setBoatExploreFlag}
                 />
               </div>
-              <div className="flex items-center space-x-1 cursor-pointer">
+              <Link
+                href={"/sign-up"}
+                className="flex items-center space-x-1 cursor-pointer"
+              >
                 <Image
                   src={"/assets/home/navbar-icon/list-your-boat.png"}
                   alt="usd icon"
@@ -194,37 +210,67 @@ const MainNavbar = () => {
                 />
                 <h3 className="text-base font-normal pl-1">List Your Boat</h3>{" "}
                 {/* <IoIosArrowDown className="size-5 font-bold" /> */}
+              </Link>
+
+              <div className="">
+                <button
+                  className="flex items-center space-x-1 cursor-pointer"
+                  onClick={() => setLanFlag(!lanFlag)}
+                >
+                  <Image
+                    src={"/assets/home/navbar-icon/world.png"}
+                    alt="usd icon"
+                    width={100}
+                    height={100}
+                    quality={90}
+                    className="cursor-pointer w-[18px] h-[18px] "
+                  />
+                  <h3 className="text-base font-normal uppercase">
+                    {lanValue}
+                  </h3>
+                  <IoIosArrowDown
+                    className={`transition-transform size-5 font-bold ${
+                      lanFlag ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                <NavbarLanguageDropdown
+                  setLanValue={setLanValue}
+                  setLanFlag={setLanFlag}
+                  lanFlag={lanFlag}
+                />
               </div>
 
-              <div className="flex items-center space-x-1 cursor-pointer">
-                <Image
-                  src={"/assets/home/navbar-icon/world.png"}
-                  alt="usd icon"
-                  width={100}
-                  height={100}
-                  quality={90}
-                  className="cursor-pointer w-[18px] h-[18px] "
+              <div className="">
+                <button
+                  className="flex items-center space-x-1 cursor-pointer"
+                  onClick={() => setCurrenciesFlag(!currenciesFlag)}
+                >
+                  <Image
+                    src={"/assets/home/navbar-icon/usd.png"}
+                    alt="usd icon"
+                    width={100}
+                    height={100}
+                    quality={90}
+                    className="cursor-pointer w-[18px] h-[18px] "
+                  />
+                  <h3 className="text-base font-normal">{currenciesValue}</h3>
+                  <IoIosArrowDown
+                    className={`transition-transform size-5 font-bold ${
+                      currenciesFlag ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                <NavbarCurrenciesDropdown
+                  setCurrenciesValue={setCurrenciesValue}
+                  setCurrenciesFlag={setCurrenciesFlag}
+                  currenciesFlag={currenciesFlag}
                 />
-                <h3 className="text-base font-normal">EN</h3>{" "}
-                <IoIosArrowDown className="size-5 font-bold" />
-              </div>
-
-              <div className="flex items-center space-x-1 cursor-pointer">
-                <Image
-                  src={"/assets/home/navbar-icon/usd.png"}
-                  alt="usd icon"
-                  width={100}
-                  height={100}
-                  quality={90}
-                  className="cursor-pointer w-[18px] h-[18px] "
-                />
-                <h3 className="text-base font-normal">USD</h3>{" "}
-                <IoIosArrowDown className="size-5 font-bold" />
               </div>
 
               <div className="hidden lg:block cursor-pointer">
                 <Link
-                  href={`/`}
+                  href={`/sign-in`}
                   className={`cursor-pointer hover:bg-primary hover:border-primary hover:text-white px-7 py-2.5 rounded-lg  transition text-lg border border-primary${
                     navbarColor
                       ? "text-black border-black"
@@ -236,12 +282,13 @@ const MainNavbar = () => {
               </div>
               <div className="hidden lg:block cursor-pointer">
                 <Link
-                  href={`/`}
+                  href="/sign-up"
                   className={`cursor-pointer bg-primary text-white px-4 py-3 rounded-lg hover:bg-hoverColor transition text-base`}
                 >
                   Create Account
                 </Link>
               </div>
+              <NavbarLanguageDropdown />
             </div>
           </div>
         </div>
@@ -259,7 +306,7 @@ const MainNavbar = () => {
           <div className="flex items-center space-x-4 justify-center">
             <div className="">
               <Link
-                href={`/`}
+                href={`/sign-in`}
                 className={`cursor-pointer hover:bg-primary hover:border-primary hover:text-white px-10 py-2.5 rounded-lg  transition text-lg border border-primary${
                   navbarColor
                     ? "text-black border-black"
@@ -271,7 +318,7 @@ const MainNavbar = () => {
             </div>
             <div className=" ">
               <Link
-                href={`/`}
+                href={`/sign-up`}
                 className={`cursor-pointer bg-primary text-white px-4 py-3 rounded-lg hover:bg-hoverColor transition text-base`}
               >
                 Create Account
@@ -334,6 +381,7 @@ const MainNavbar = () => {
           </div>
         </div>
       </div>
+      {/* <LoginPage loginFlag={loginFlag} setLoginFlag={setLoginFlag} /> */}
     </section>
   );
 };

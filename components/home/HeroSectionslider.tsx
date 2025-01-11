@@ -42,7 +42,7 @@ const HeroSectionslider = () => {
             <div className="flex items-center justify-center mt-14">
               <div className="w-full md:w-[80%] -mt-[5%]">
                 <motion.h1
-                  className={`text-[45px] md:text-[80px] text-white font-bold text-center  leading-[60px] md:leading-[85px] tracking-normal `}
+                  className={`text-[45px] md:text-[80px] text-white font-bold text-center  leading-[60px] md:leading-[105px] tracking-normal `}
                 >
                   {text.map((word, index) => (
                     <motion.span
