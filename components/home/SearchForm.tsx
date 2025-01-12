@@ -4,7 +4,7 @@ import { SlLocationPin } from "react-icons/sl";
 
 const SearchForm = () => {
   return (
-    <div className="md:absolute left-0 right-0 z-10 mt-6 md:mt-0">
+    <div className="md:absolute left-0 right-0 z-10 mt-6 md:mt-0 bg-secondary">
       {/* Search Form */}
       <div className=" bg-white rounded-xl  shadow w-full md:w-[50%] mx-auto -mt-[4%] px-8 md:px-20 py-10 md:py-14">
         <div className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0  space-x-0  md:space-x-6">
