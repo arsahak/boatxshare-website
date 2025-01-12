@@ -288,7 +288,6 @@ const MainNavbar = () => {
                   Create Account
                 </Link>
               </div>
-              <NavbarLanguageDropdown />
             </div>
           </div>
         </div>

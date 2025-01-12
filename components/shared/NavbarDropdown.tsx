@@ -56,7 +56,6 @@ const NavbarDropdown: React.FC<NavbarDropdownProps> = ({
             {navData?.map((el, index) => (
               <li key={index} className="hover:bg-gray-100">
                 <button
-                  href="#"
                   className="block px-4 py-3  "
                   onClick={() => setBoatExploreFlag(false)}
                 >
