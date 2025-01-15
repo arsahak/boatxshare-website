@@ -3,6 +3,8 @@ import { doCredentialLogin } from "@/app/action/userAuth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { ImFacebook2 } from "react-icons/im";
 import { LuEye, LuEyeOff, LuLock, LuUsers } from "react-icons/lu";
 
 const UserSignInForm = () => {
@@ -47,7 +49,7 @@ const UserSignInForm = () => {
   return (
     <div className="w-[700px] mx-auto px-20 py-20 bg-white rounded shadow-md border">
       <h2 className="font-semibold text-3xl text-primary mb-12 text-center">
-        Sign in to your account
+        Welcome back! Please log in
       </h2>
       <form className="w-f" onSubmit={onSubmit}>
         <div className="py-3">
@@ -162,6 +164,29 @@ const UserSignInForm = () => {
               <p>Sign in</p>
             )}
           </button>
+        </div>
+
+        <div className="flex items-center justify-between w-full space-x-5  mt-0 md:mt-2 mb-1">
+          <hr className="h-px my-8 bg-gray-400 border-0 w-[20%] md:w-[49%]" />
+          <div className="flex items-center justify-between space-x-2 w-[60%] md:w-[2%] text-gray-400 ">
+            or
+          </div>
+          <hr className="h-px my-8 bg-gray-400 border-0 w-[20%] md:w-[49%]" />
+        </div>
+
+        <div className="flex items-center justify-between space-x-3 mt-6">
+          <div
+            className={`text-white font-medium rounded-lg text-lg px-5 py-2.5 w-full bg-none border border-gray-700 hover:bg-hoverColor flex items-center justify-center space-x-2`}
+          >
+            <FcGoogle className="size-6" />
+            <p className="text-gray-700"> Google</p>
+          </div>
+          <div
+            className={`text-white font-medium rounded-lg text-lg px-5 py-2.5 w-full bg-none border border-gray-700 hover:bg-hoverColor flex items-center justify-center space-x-2`}
+          >
+            <ImFacebook2 className="size-6 text-blue-800" />
+            <p className="text-gray-700"> Facebook</p>
+          </div>
         </div>
       </form>
     </div>

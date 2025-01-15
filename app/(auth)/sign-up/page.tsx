@@ -1,9 +1,9 @@
-import UserSignupForm from "@/components/userAuth/UserSignupForm";
+import SignupOption from "@/components/userAuth/SignupOption";
 
 const page = () => {
   return (
     <div className="bg-secondary h-screen w-full flex items-center">
-      <UserSignupForm />
+      <SignupOption />
     </div>
   );
 };
