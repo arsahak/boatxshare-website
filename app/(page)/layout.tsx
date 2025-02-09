@@ -3,6 +3,7 @@ import "../globals.css";
 
 import MainFooter from "@/components/layout/MainFooter";
 import MainNavbar from "@/components/layout/MainNavbar";
+import GlobalToast from "@/components/shared/ui/GlobalToast";
 import "../i18n";
 import { Providers } from "../providers";
 
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <Providers>
           <MainNavbar />
+          <GlobalToast />
           <div> {children}</div>
           <MainFooter />
         </Providers>

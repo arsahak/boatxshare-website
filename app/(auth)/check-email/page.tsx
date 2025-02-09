@@ -1,9 +1,9 @@
-import UserSignInForm from "@/components/userAuth/UserSignInForm";
+import CheckEmail from "@/components/userAuth/CheckEmail";
 
-const page = async () => {
+const page = () => {
   return (
     <div className="bg-secondary h-screen w-full flex items-center">
-      <UserSignInForm />
+      <CheckEmail />
     </div>
   );
 };

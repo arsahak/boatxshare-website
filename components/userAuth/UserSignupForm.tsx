@@ -5,20 +5,20 @@ import { useState } from "react";
 import { LuEye, LuEyeOff } from "react-icons/lu";
 
 const UserSignupForm: React.FC = () => {
+  const router = useRouter();
+
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [formData, setFormData] = useState({
-    businessName: "",
+    name: "",
     email: "",
     phone: "",
     password: "",
     confirmPassword: "",
   });
-
-  const router = useRouter();
 
   const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
   const toggleConfirmPasswordVisibility = () =>
@@ -33,7 +33,7 @@ const UserSignupForm: React.FC = () => {
   };
 
   const validateForm = () => {
-    if (!formData.businessName || !formData.email || !formData.phone) {
+    if (!formData.name || !formData.email || !formData.phone) {
       return "Please fill out all fields.";
     }
     if (formData.password !== formData.confirmPassword) {
@@ -69,9 +69,8 @@ const UserSignupForm: React.FC = () => {
 
       const data = await response.json();
 
-      if (response.ok) {
-        // setUserSignUpOtpFlag(true);
-        // setUserSignUpInfo({ email: formData.email, otp: "1234" });
+      if (data?.success) {
+        router.push("/check-email");
       } else {
         // Handle server-side errors
         setError(data.message || "An error occurred during sign-up.");
@@ -89,42 +88,25 @@ const UserSignupForm: React.FC = () => {
         Create your account
       </h2>
       <form className="w-full" onSubmit={onSubmit}>
-        <div className="flex items-center space-x-4 py-3">
-          <div className="w-full">
-            <label
-              htmlFor="text"
-              className="block mb-2 text-lg font-normal text-gray-900"
-            >
-              First Name<span className="text-primary">*</span>
-            </label>
-            <div className="">
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                className="bg-white border border-gray-300 text-lg rounded-lg focus:ring-primary focus:border-primary block w-full pl-3 py-2 placeholder-gray-400 outline-none"
-                placeholder="AR "
-              />
-            </div>
-          </div>
-          <div className="w-full">
-            <label
-              htmlFor="email"
-              className="block mb-2 text-lg font-normal text-gray-900"
-            >
-              Last Name<span className="text-primary">*</span>
-            </label>
-            <div className="">
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                className="bg-white border border-gray-300 text-lg rounded-lg focus:ring-primary focus:border-primary block w-full pl-3 py-2 placeholder-gray-400 outline-none"
-                placeholder="Sahak"
-              />
-            </div>
+        <div className="py-3">
+          <label
+            htmlFor="name"
+            className="block mb-2 text-lg font-normal text-gray-900"
+          >
+            Name<span className="text-primary">*</span>
+          </label>
+          <div>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              className="bg-white border border-gray-300 text-lg rounded-lg focus:ring-primary focus:border-primary block w-full pl-3 py-2 placeholder-gray-400 outline-none"
+              placeholder="AR Sahak"
+              autoComplete="off"
+              value={formData.name}
+              onChange={handleChange}
+            />
           </div>
         </div>
         <div className="py-3">
@@ -142,6 +124,9 @@ const UserSignupForm: React.FC = () => {
               required
               className="bg-white border border-gray-300 text-lg rounded-lg focus:ring-primary focus:border-primary block w-full pl-3 py-2 placeholder-gray-400 outline-none"
               placeholder="example@gmail.com"
+              autoComplete="off"
+              value={formData.email}
+              onChange={handleChange}
             />
           </div>
         </div>
@@ -156,11 +141,14 @@ const UserSignupForm: React.FC = () => {
           <div className="">
             <input
               type="text"
-              id="email"
-              name="email"
+              id="phone"
+              name="phone"
               required
               className="bg-white border border-gray-300 text-lg rounded-lg focus:ring-primary focus:border-primary block w-full pl-3 py-2 placeholder-gray-400 outline-none"
               placeholder="0123456789"
+              autoComplete="off"
+              value={formData.phone}
+              onChange={handleChange}
             />
           </div>
         </div>
@@ -173,7 +161,7 @@ const UserSignupForm: React.FC = () => {
           >
             Password<span className="text-primary">*</span>
           </label>
-          <div className="">
+          <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
               id="password"
@@ -181,6 +169,8 @@ const UserSignupForm: React.FC = () => {
               required
               className="bg-white border border-gray-300 text-lg rounded-lg focus:ring-primary focus:border-primary block w-full pl-3 py-2 placeholder-gray-400 outline-none"
               placeholder="*********"
+              value={formData.password}
+              onChange={handleChange}
             />
             <button
               type="button"
@@ -205,22 +195,24 @@ const UserSignupForm: React.FC = () => {
             Confirm Password
             <span className="text-primary">*</span>
           </label>
-          <div className="">
+          <div className="relative">
             <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              name="password"
+              type={showConfirmPassword ? "text" : "password"}
+              id="confirmPassword"
+              name="confirmPassword"
               required
               className="bg-white border border-gray-300 text-lg rounded-lg focus:ring-primary focus:border-primary block w-full pl-3 py-2 placeholder-gray-400 outline-none"
               placeholder="*********"
+              value={formData.confirmPassword}
+              onChange={handleChange}
             />
             <button
               type="button"
               className="absolute inset-y-0 right-0 flex items-center pr-3"
-              onClick={togglePasswordVisibility}
+              onClick={toggleConfirmPasswordVisibility}
               aria-label="Toggle password visibility"
             >
-              {showPassword ? (
+              {showConfirmPassword ? (
                 <LuEye className="text-primary text-lg" />
               ) : (
                 <LuEyeOff className="text-primary text-lg" />

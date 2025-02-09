@@ -4,6 +4,8 @@ import { ImFacebook2 } from "react-icons/im";
 import { MdOutlineMarkEmailRead } from "react-icons/md";
 
 const SignupOption = () => {
+  const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQ…M5NH0.-NIDufp-xchgqlxvK5BlR0qe0iv-5nP9QDQ9NPjG3LA`;
+
   return (
     <div className="w-[700px] mx-auto px-20 py-20 bg-white rounded shadow-md border">
       <h2 className="font-semibold text-3xl text-primary mb-12 text-center">
@@ -28,13 +30,13 @@ const SignupOption = () => {
 
       <div className=" space-y-5 mt-4">
         <div
-          className={`text-white font-medium rounded-lg text-lg px-5 py-2.5 w-full bg-none border border-gray-700 hover:bg-hoverColor flex items-center justify-center space-x-2`}
+          className={`text-white font-medium rounded-lg text-lg px-5 py-2.5 w-full bg-none border border-gray-700 hover:bg-hoverColor flex items-center justify-center space-x-2 cursor-pointer`}
         >
           <FcGoogle className="size-6" />
           <p className="text-gray-700"> Google</p>
         </div>
         <div
-          className={`text-white font-medium rounded-lg text-lg px-5 py-2.5 w-full bg-none border border-gray-700 hover:bg-hoverColor flex items-center justify-center space-x-2`}
+          className={`text-white font-medium rounded-lg text-lg px-5 py-2.5 w-full bg-none border border-gray-700 hover:bg-hoverColor flex items-center justify-center space-x-2 cursor-pointer`}
         >
           <ImFacebook2 className="size-5 text-blue-800" />
           <p className="text-gray-700"> Facebook</p>
