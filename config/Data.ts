@@ -3,7 +3,7 @@ export const datas = [
     id: 1,
     title: "Motor Yacht",
     slug: "motor-yacht",
-    desc: "Speed and luxury combined for fast, stylish escapes on the open sea",
+    desc: "Speed and luxury combined for fast, stylish escapes on the open se",
     guest: 12,
     cabins: 6,
     knots: 30,
