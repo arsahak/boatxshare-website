@@ -71,7 +71,7 @@ const reviews: Review[] = [
   },
 ];
 
-export default function Review() {
+export default function Review({ rating }: any) {
   return (
     <div className="">
       <div className="flex items-start justify-between gap-5">
@@ -81,7 +81,7 @@ export default function Review() {
             <div className="flex items-center text-base text-gray-600 space-x-2">
               <GoStarFill className=" size-5 fill-current" />
               <span className="ml-1 font-medium text-black">4.9</span>
-              <span className="ml-1">(129 ratings)</span>
+              <span className="ml-1">{rating}ratings</span>
             </div>
           </div>
           <button className="md:absolute mt-8 bottom-0 border border-primary rounded-lg py-2 px-4 text-sm text-center text-primary hover:bg-gray-50">

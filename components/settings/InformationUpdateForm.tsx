@@ -80,12 +80,9 @@ const InformationUpdateForm = ({
 
     const formData = new FormData();
     formData.append("image", businessInfoForm.image);
-    formData.append("businessName", businessInfoForm.businessName);
-    formData.append("businessWebsite", businessInfoForm.businessWebsite);
-    formData.append("website", businessInfoForm.website);
+    formData.append("name", businessInfoForm.businessName);
     formData.append("phone", businessInfoForm.phone);
     formData.append("address", businessInfoForm.address);
-    formData.append("brandColor", businessInfoForm.brandColor);
 
     try {
       const result = await updateUserData(formData);
@@ -150,7 +147,7 @@ const InformationUpdateForm = ({
           <table className="w-full text-left rtl:text-right text-xl font-medium ">
             <tbody>
               <tr className="bg-white">
-                <td className="px-6 py-3 text-[#666666]">Business Name:</td>
+                <td className="px-6 py-3 text-[#666666]">User Name:</td>
                 <td className="px-6 py-3 text-[#11142D]">
                   {userInfoUpdateFlag ? (
                     <input
@@ -159,7 +156,7 @@ const InformationUpdateForm = ({
                       className="bg-white border border-gray-300 text-lg rounded-lg focus:ring-primary focus:border-primary block w-[400px] pl-4 py-2 placeholder-gray-400  active:border-primary outline-none "
                       id="businessName"
                       name="businessName"
-                      value={businessInfoForm.businessName}
+                      value={businessInfoForm.name}
                       onChange={handleChange}
                     />
                   ) : (
@@ -168,12 +165,12 @@ const InformationUpdateForm = ({
                       type="text"
                       id="email-address-icon"
                       className="bg-white border border-gray-300 text-lg rounded-lg focus:ring-primary focus:border-primary block w-[400px] pl-4 py-2 placeholder-gray-400  active:border-primary outline-none "
-                      value={userData?.businessName}
+                      value={userData?.name}
                     />
                   )}
                 </td>
               </tr>
-              <tr className="bg-white">
+              {/* <tr className="bg-white">
                 <td className="px-6 py-3 text-[#666666]">Business Website:</td>
                 <td className="px-6 py-3 text-[#11142D]">
                   {userInfoUpdateFlag ? (
@@ -196,7 +193,7 @@ const InformationUpdateForm = ({
                     />
                   )}
                 </td>
-              </tr>
+              </tr> */}
             </tbody>
           </table>
         </div>
@@ -229,7 +226,7 @@ const InformationUpdateForm = ({
                   )}
                 </td>
               </tr>
-              <tr className="bg-white">
+              {/* <tr className="bg-white">
                 <td className="px-6 py-3 text-[#666666]">Website:</td>
                 <td className="px-6 py-3 text-[#11142D]">
                   {userInfoUpdateFlag ? (
@@ -252,7 +249,7 @@ const InformationUpdateForm = ({
                     />
                   )}
                 </td>
-              </tr>
+              </tr> */}
               <tr className="bg-white">
                 <td className="px-6 py-3 text-[#666666]">Phone Number:</td>
                 <td className="px-6 py-3 text-[#11142D]">

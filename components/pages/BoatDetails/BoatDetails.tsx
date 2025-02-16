@@ -1,21 +1,33 @@
 "use client";
+import {
+  Button,
+  DateRangePicker,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@heroui/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { BiCalendar, BiMinus, BiPlus, BiRuler, BiTag } from "react-icons/bi";
 import { CgCap } from "react-icons/cg";
 import { GiBoatEngine } from "react-icons/gi";
-import { GoPeople, GoStarFill } from "react-icons/go";
+import { GoClock, GoPeople, GoStarFill } from "react-icons/go";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import { LuSunMedium } from "react-icons/lu";
-import { TbMessageCog, TbRulerMeasure } from "react-icons/tb";
-import BoatLocation from "./BoatLoaction";
-import CrewSection from "./CrewSection";
+import { TbMessageCog, TbPointFilled, TbRulerMeasure } from "react-icons/tb";
+import { toast } from "react-toastify";
 import Review from "./Review";
 import SimilarBoat from "./SimilarBoat";
 import ThingsToKnow from "./ThingsToKnow";
 
-const BoatDetails = () => {
+const BoatDetails = ({ boatDetails, session }: any) => {
+  const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const images = [
-    "/assets/home/explor/Container.jpg", // Replace with dynamic image paths
+    "/assets/home/explor/Container.jpg",
     "/assets/home/explor/Container.jpg",
     "/assets/home/explor/Container.jpg",
     "/assets/home/explor/Container.jpg",
@@ -24,29 +36,89 @@ const BoatDetails = () => {
     {
       icon: BiCalendar,
       label: "Year",
-      value: "2000",
+      value: boatDetails?.boatYear,
     },
     {
       icon: BiRuler,
       label: "Length",
-      value: "37 ft.",
+      value: `${boatDetails?.boatLength} ft.`,
     },
     {
       icon: GiBoatEngine,
       label: "Make",
-      value: "Rinker Boats",
+      value: boatDetails?.boatMake,
     },
     {
       icon: BiTag,
       label: "Model",
-      value: "340 Fiesta Vee",
+      value: boatDetails?.boatModel,
     },
     {
       icon: GoPeople,
       label: "Capacity",
-      value: "12",
+      value: boatDetails?.boatPassengers,
     },
   ];
+
+  const [durationValue, setDurationValue] = useState({
+    boatDetails: boatDetails?._id,
+    duration: {
+      startDate: "",
+      endDate: "",
+      totalDays: "",
+    },
+    groupSize: 15,
+    baseCost: 140,
+    paymentServiceFee: 14,
+    totalFee: 78514,
+    orderStatus: "pending",
+    paymentStatus: "paid",
+  });
+
+  const handleSubmitFormData = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!session) {
+      router.push("/sign-in");
+    }
+
+    try {
+      // Submit form data
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/orders`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: session || "",
+          },
+          body: JSON.stringify(durationValue),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(
+          errorData?.error || `Error: ${response.status} ${response.statusText}`
+        );
+      }
+
+      toast.success("Client created successfully!");
+      setError(null);
+      // router.push("/dashboard");
+    } catch (error) {
+      console.error("Error creating client data:", error);
+      toast.error(
+        error instanceof Error ? error.message : "An unexpected error occurred."
+      );
+      setError(
+        error instanceof Error ? error.message : "Something went wrong."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -90,7 +162,7 @@ const BoatDetails = () => {
           <div className="">
             {/* Header */}
             <h2 className=" font-bold text-2xl md:text-4xl leading-snug text-center md:text-left my-10">
-              FREE Hour when you book 4 on 37' Rinker <br /> Fiesta Yacht!!!!
+              {boatDetails?.title}
             </h2>
             {/* Stats Row */}
             <div className="flex flex-wrap gap-14 mb-6">
@@ -98,8 +170,10 @@ const BoatDetails = () => {
                 <div className="flex items-center gap-2">
                   <GoStarFill className="w-6 h-6 fill-yellow-400 text-yellow-400" />
                   <div>
-                    <p className="font-bold">4.9</p>
-                    <p className="text-sm text-gray-600">(328 bookings)</p>
+                    <p className="font-bold">
+                      {boatDetails?.ratings.toFixed(1)}
+                    </p>
+                    <p className="text-sm text-gray-600">{`${boatDetails?.totalBooking} bookings`}</p>
                   </div>
                 </div>
               </div>
@@ -108,7 +182,7 @@ const BoatDetails = () => {
                 <div className="flex items-center gap-2">
                   <TbRulerMeasure className="w-6 h-6 text-gray-700" />
                   <div>
-                    <p className="font-bold">87'</p>
+                    <p className="font-bold">{boatDetails?.boatLength}'</p>
                     <p className="text-sm text-gray-600">Boat length</p>
                   </div>
                 </div>
@@ -118,29 +192,35 @@ const BoatDetails = () => {
                 <div className="flex items-center gap-2">
                   <GoPeople className="w-6 h-6 text-gray-700" />
                   <div className="text-left">
-                    <p className="font-bold ">Up to 12</p>
+                    <p className="font-bold ">
+                      Up to {boatDetails?.boatPassengers}
+                    </p>
                     <p className="text-sm text-gray-600">Passengers</p>
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-col items-center ">
-                <div className="flex items-center gap-2">
-                  <CgCap className="w-6 h-6 text-gray-700" />
-                  <div>
-                    <p className="font-bold">Captained</p>
-                    <p className="text-sm text-gray-600">
-                      The boat is insured with a deposit
-                    </p>
+              {boatDetails?.boatCaptain && (
+                <div className="flex flex-col items-center ">
+                  <div className="flex items-center gap-2">
+                    <CgCap className="w-6 h-6 text-gray-700" />
+                    <div>
+                      <p className="font-bold">Captained</p>
+                      <p className="text-sm text-gray-600">
+                        The boat is insured with a deposit
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
 
               <div className="flex flex-col items-center ">
                 <div className="flex items-center gap-2">
                   <TbMessageCog className="w-6 h-6 text-gray-700" />
                   <div>
-                    <p className="font-bold">95%</p>
+                    <p className="font-bold">
+                      {boatDetails?.boatLister?.responseRate} %
+                    </p>
                     <p className="text-sm text-gray-600">
                       Return & response rate
                     </p>
@@ -153,10 +233,12 @@ const BoatDetails = () => {
             <div className="grid grid-cols-6 gap-2 h-[500px]">
               {/* Large Image */}
               <div className="col-span-2 row-span-2">
-                <Image
-                  width={500}
-                  height={500}
-                  src={images[0]}
+                <img
+                  src={
+                    boatDetails?.gallery[0] && boatDetails.gallery[0] !== ""
+                      ? boatDetails.gallery[0]
+                      : images[0]
+                  }
                   alt="Large"
                   className="w-full h-full object-cover rounded-md"
                 />
@@ -166,19 +248,21 @@ const BoatDetails = () => {
               <div className="col-span-2 row-span-2 gap-2 ">
                 {/* {images.map((image, index) => ( */}
                 <div className="flex flex-col gap-2 h-full">
-                  <Image
-                    // key={index}
-                    width={500}
-                    height={500}
-                    src={images[1]}
+                  <img
+                    src={
+                      boatDetails?.gallery[2] && boatDetails.gallery[2] !== ""
+                        ? boatDetails.gallery[2]
+                        : images[2]
+                    }
                     alt={`Small`}
                     className="w-full h-full object-cover rounded-md"
                   />
-                  <Image
-                    // key={index}
-                    width={500}
-                    height={500}
-                    src={images[2]}
+                  <img
+                    src={
+                      boatDetails?.gallery[3] && boatDetails.gallery[3] !== ""
+                        ? boatDetails.gallery[3]
+                        : images[3]
+                    }
                     alt={`Small`}
                     className="w-full h-full object-cover rounded-md"
                   />
@@ -189,11 +273,12 @@ const BoatDetails = () => {
               {/* Remaining Images */}
               <div className="col-span-2 row-span-2 ">
                 {/* {images.map((image, index) => ( */}
-                <Image
-                  // key={index}
-                  width={500}
-                  height={500}
-                  src={images[3]}
+                <img
+                  src={
+                    boatDetails?.gallery[1] && boatDetails.gallery[1] !== ""
+                      ? boatDetails.gallery[1]
+                      : images[1]
+                  }
                   alt={`Small`}
                   className="w-full h-full object-cover rounded-md"
                 />
@@ -209,12 +294,7 @@ const BoatDetails = () => {
               <div>
                 <h2 className="text-2xl font-semibold mb-3">The boat</h2>
                 <p className="text-gray-600 text-lg leading-relaxed">
-                  Book 4 hours on our luxurious 37' Rinker Fiesta Yacht and get
-                  an extra hour absolutely FREE! That's 5 hours of ultimate fun
-                  and relaxation at no extra cost, for $399 per person for full
-                  3Day 2Night in Khulna, Khulna Division. Book 4 hours on our
-                  luxurious 37' Rinker Fiesta Yacht and get an extra hour
-                  absolutely FREE!
+                  {boatDetails?.description}
                 </p>
               </div>
 
@@ -222,13 +302,7 @@ const BoatDetails = () => {
               <div className="mb-16">
                 <h2 className="text-xl font-semibold mb-3">Amenities</h2>
                 <ul className="space-y-3">
-                  {[
-                    "Spacious deck for lounging and enjoying the sea breeze",
-                    "Comfortable indoor seating with air-conditioning",
-                    "Premium sound system for your favorite tunes",
-                    "Fully equipped kitchen and bathroom onboard",
-                    "Perfect for parties, family gatherings, or a romantic getaway",
-                  ].map((amenity, index) => (
+                  {boatDetails?.boatAmenitiesList?.map((amenity, index) => (
                     <li
                       key={index}
                       className="flex items-center gap-3 text-lg text-gray-800"
@@ -259,6 +333,26 @@ const BoatDetails = () => {
                   ))}
                 </div>
               </div>
+
+              {/* Specifications Section */}
+              <div className="">
+                <h2 className="text-xl font-semibold mb-3">Booking Option</h2>
+                <div className="space-y-4">
+                  {boatDetails?.bookingOption?.map((spec) => (
+                    <div key={spec.label} className="flex items-center gap-1">
+                      <TbPointFilled className="w-[18px] h-[18px] stroke-[1.5px] text-gray-500 shrink-0" />
+                      <div className="flex items-center gap-10">
+                        <span className="text-lg text-gray-700 w-32">
+                          {spec.duration}
+                        </span>
+                        <span className="text-lg font-medium">
+                          $ {spec.price}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* Right Column - Booking Card */}
@@ -275,7 +369,7 @@ const BoatDetails = () => {
               {/* Date Selection */}
               <div className="mb-6">
                 <label className="block text-base mb-2">Date</label>
-                <div className="relative">
+                {/* <div className="relative">
                   <input
                     type="text"
                     value="29 Dec 2024 - 31 Dec 2024"
@@ -283,20 +377,45 @@ const BoatDetails = () => {
                     className="w-full p-3 border rounded-lg pr-10 text-sm"
                   />
                   <BiCalendar className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                </div> */}
+                <div className="">
+                  <DateRangePicker className="max-w-full" />
                 </div>
               </div>
 
               {/* Duration and Group Size */}
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div>
-                  <label className="block text-base mb-2">Duration</label>
-                  <div className="flex items-center gap-2">
-                    <LuSunMedium className="w-5 h-5 text-gray-800" />
-                    <span className="text-base underline">3 days</span>
+              <div className="flex items-start justify-between gap-4 mb-6">
+                <div className="flex-1">
+                  <div>
+                    <label className="block text-base mb-2">Duration</label>
                   </div>
+                  <Dropdown className="bordered">
+                    <DropdownTrigger>
+                      <Button variant="bordered">
+                        <div className="flex items-center gap-2">
+                          <GoClock className="w-5 h-5 text-gray-800" />
+                          <span className="text-base underline">3 days</span>
+                        </div>
+                      </Button>
+                    </DropdownTrigger>
+                    <DropdownMenu
+                      aria-label="Static Actions"
+                      value={durationValue}
+                      onChange={(e) => setDurationValue(e.target.value)}
+                    >
+                      {boatDetails?.bookingOption?.map((el, index) => (
+                        <DropdownItem key={index}>
+                          <div className="flex items-center space-x-4">
+                            <p className="w-16">{el?.duration}</p> -
+                            <p>${el?.price}</p>
+                          </div>
+                        </DropdownItem>
+                      ))}
+                    </DropdownMenu>
+                  </Dropdown>
                 </div>
-                <div>
-                  <label className="block text-base mb-2">
+                <div className="flex-1">
+                  <label className="flex item text-base mb-2">
                     Group Size <span className="text-gray-400">(50 max)</span>
                   </label>
                   <div className="flex items-center gap-2">
@@ -312,8 +431,11 @@ const BoatDetails = () => {
               </div>
 
               {/* Send Inquiry Button */}
-              <button className="w-full bg-primary text-white font-medium py-3 rounded-lg mb-6">
-                Send Inquiry
+              <button
+                className="w-full bg-primary text-white font-medium py-3 rounded-lg mb-6"
+                onClick={handleSubmitFormData}
+              >
+                {loading ? "Loading" : "Confirm Order"}
               </button>
 
               {/* Price Breakdown */}
@@ -338,10 +460,14 @@ const BoatDetails = () => {
           </div>
           <hr className="my-10" />
           {/* review */}
-          <Review />
+          <Review
+            rating={boatDetails?.ratings}
+            // reviews={boatDetails?.reviews}
+          />
           {/* location */}
-          <BoatLocation />
-          <CrewSection />
+          {/* <BoatLocation location="Dinajpur, Dhaka, Bangladesh" /> */}
+
+          {/* <CrewSection boatLister={boatDetails?.boatLister} /> */}
           <ThingsToKnow />
           <SimilarBoat />
         </div>

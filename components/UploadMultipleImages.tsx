@@ -73,13 +73,13 @@ const UploadMultipleImages: React.FC<UploadMultipleImagesProps> = ({
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         {/* Image Previews with Remove Option */}
         {previews.length > 0 ? (
-          <div className="flex flex-wrap gap-2 mt-2 w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 p-3">
+          <div className="flex flex-wrap gap-2 mt-2 w-full h-56 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 p-3">
             {previews.map((src, index) => (
               <div key={index} className="relative">
                 <img
                   src={src}
                   alt={`Preview ${index}`}
-                  className="w-32 h-32 object-cover rounded shadow"
+                  className="w-56 h-48 object-cover rounded shadow"
                 />
                 <button
                   type="button"
@@ -93,7 +93,7 @@ const UploadMultipleImages: React.FC<UploadMultipleImagesProps> = ({
           </div>
         ) : (
           <div className="flex items-center justify-center w-full">
-            <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 ">
+            <label className="flex flex-col items-center justify-center w-full h-56 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 ">
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
                 <svg
                   className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"

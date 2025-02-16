@@ -1,9 +1,11 @@
+import { auth } from "@/auth";
 import BoatListingSection from "@/components/boatListing/BoatListingSection";
 
-const page = () => {
+const page = async () => {
+  const session = await auth();
   return (
     <div>
-      <BoatListingSection />
+      <BoatListingSection session={session?.user?.accessToken} />
     </div>
   );
 };

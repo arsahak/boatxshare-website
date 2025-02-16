@@ -1,13 +1,15 @@
 "use client";
 
-import { getAllBoatListData } from "@/app/action/boatList";
-import { Spinner } from "@nextui-org/react";
+import { getAllBoatListDataSearch } from "@/app/action/boatList";
+
+import { Spinner } from "@heroui/react";
 import debounce from "lodash.debounce";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Fill } from "react-icons/ri";
+import ClientDeletedModal from "../shared/ui/Modal/ClientDeletedModal";
 
 interface Pagination {
   totalPages: number | null;
@@ -38,7 +40,7 @@ const BoatListTableData = () => {
   const [clientDeletedValue, setClientDeletedValue] = useState<boolean>(false);
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [limit] = useState(10);
+  const [limit] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
   const [clientData, setClientData] = useState<Client[]>([]);
   const [pagination, setPagination] = useState<Pagination | null>(null);
@@ -50,15 +52,15 @@ const BoatListTableData = () => {
   const fetchUsers = useCallback(async () => {
     setIsLoading(true);
     try {
-      const result = await getAllBoatListData(
+      const result = await getAllBoatListDataSearch(
         debouncedSearch,
         currentPage,
         limit
       );
 
       if (result.ok && result.data) {
-        setClientData(result.data.boats);
-        setPagination(result.data.pagination);
+        setClientData(result?.data?.boatLister);
+        setPagination(result?.data?.pagination);
 
         if (result.data.pagination.totalPages < currentPage) {
           setCurrentPage(result.data.pagination.totalPages || 1);
@@ -207,14 +209,14 @@ const BoatListTableData = () => {
               </tr>
             </thead>
             <tbody>
-              {clientData.map((client: any) => (
+              {clientData?.map((client: any, index: number) => (
                 <tr
-                  key={client?._id}
+                  key={index}
                   className="odd:bg-white odd:dark:bg-gray-500 even:bg-gray-50 even:dark:bg-gray-500 border-b text-[16px] font-medium text-gray-800 text-center "
                 >
-                  <td>{client?.title}</td>
-                  <td>{client.boatType}</td>
-                  <td>{client.boatModel}</td>
+                  <td className="text-left px-4">{client?.title}</td>
+                  <td className="text-center">{client?.boatType}</td>
+                  <td className="text-center">{client?.boatModel}</td>
                   <td className="flex justify-center space-x-3 py-2">
                     <button
                       // onClick={() => router.push(`/client-edit/${client._id}`)}
@@ -223,7 +225,7 @@ const BoatListTableData = () => {
                       <FiEdit className="text-yellow-600" />
                     </button>
                     <button
-                      // onClick={() => handleUserDelete(client._id)}
+                      onClick={() => handleUserDelete(client?._id)}
                       className="bg-red-100 p-1.5 rounded hover:bg-red-200"
                     >
                       <RiDeleteBin6Fill className="text-red-500" />
@@ -235,19 +237,19 @@ const BoatListTableData = () => {
           </table>
         ) : (
           <p className="text-center  text-gray-600 flex items-center justify-center min-h-[50vh]">
-            No client data available.
+            No boat data available.
           </p>
         )}
         <div className="mr-5"> {renderPagination}</div>
       </div>
 
-      {/* <ClientDeletedModal
+      <ClientDeletedModal
         clientDeletedModal={clientDeletedModal}
         setClientDeletedModal={setClientDeletedModal}
         clientId={clientId}
         setClientDeletedValue={setClientDeletedValue}
         clientDeletedValue={clientDeletedValue}
-      /> */}
+      />
     </div>
   );
 };

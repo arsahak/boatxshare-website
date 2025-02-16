@@ -4,6 +4,7 @@ import "../globals.css";
 import MainFooter from "@/components/layout/MainFooter";
 import MainNavbar from "@/components/layout/MainNavbar";
 import GlobalToast from "@/components/shared/ui/GlobalToast";
+import ReduxProvider from "@/redux/reduxProvider";
 import "../i18n";
 import { Providers } from "../providers";
 
@@ -31,12 +32,14 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${opensans.variable}   antialiased`}
       >
-        <Providers>
-          <MainNavbar />
-          <GlobalToast />
-          <div> {children}</div>
-          <MainFooter />
-        </Providers>
+        <ReduxProvider>
+          <Providers>
+            <MainNavbar />
+            <GlobalToast />
+            <div> {children}</div>
+            <MainFooter />
+          </Providers>
+        </ReduxProvider>
       </body>
     </html>
   );

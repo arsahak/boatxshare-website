@@ -35,11 +35,11 @@ const ClientDeletedModal: React.FC<ClientDeletedModalProps> = ({
       const response = await clientDeletedById(clientId);
 
       if (response.ok) {
-        toast.success("Successfully deleted client");
+        toast.success("Successfully deleted boat");
         setClientDeletedModal(false);
         setClientDeletedValue(!clientDeletedValue);
       } else {
-        toast.error(response.error || "Failed to delete client.");
+        toast.error(response.error || "Failed to delete boat.");
       }
     } catch (error) {
       console.error("Error in userDeletedHandler:", error);
@@ -61,8 +61,8 @@ const ClientDeletedModal: React.FC<ClientDeletedModalProps> = ({
             <div className="relative bg-white rounded-lg shadow">
               {/* Modal header */}
               <div className="flex items-center p-4 md:p-5 border-b rounded-t bg-secondary text-white">
-                <h3 className="text-xl font-semibold text-white text-center flex justify-center">
-                  Delete Client
+                <h3 className="text-xl font-semibold text-black text-center flex justify-center">
+                  Delete Boat
                 </h3>
                 <button
                   onClick={closeModal}

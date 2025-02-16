@@ -12,7 +12,7 @@ import ListingQuestionTwo from "./ListingQuestionTwo";
 
 type Answer = { question: number; answer: string };
 
-const BoatListingSection = () => {
+const BoatListingSection = ({ session }: any) => {
   const router = useRouter();
 
   const [currentStep, setCurrentStep] = useState(1);
@@ -50,35 +50,57 @@ const BoatListingSection = () => {
   }, {});
 
   const handleSubmit = async () => {
-    setLoading(true);
-    setError(null);
+    try {
+      setLoading(true);
+      setError(null);
 
-    if (!answers.length) {
-      setError("Please select an option before submitting.");
-      setLoading(false);
-      return;
-    }
+      if (!answers.length) {
+        setError("Please select an option before submitting.");
+        setLoading(false);
+        return;
+      }
 
-    const formData = new FormData();
-    formData.append("isBoatLister", JSON.stringify(false));
-    formData.append(
-      "isBoatListerDetails",
-      JSON.stringify({
-        listingRequest: true,
-        listingRequestInfo: answersObject,
-      })
-    );
+      const formdata = {
+        isBoatLister: "false",
+        isBoatListerDetails: {
+          listingRequest: true,
+          listingRequestInfo: answersObject,
+        },
+      };
 
-    const result = await createBoatListerRequest(formData);
+      // First API call
+      const result = await createBoatListerRequest(formdata);
 
-    if (result.ok) {
-      toast.success("Successfully send boat lister request");
+      if (!result || result.error) {
+        throw new Error(result?.error || "Failed to send request.");
+      }
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/boat-listing`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `${session}`,
+          },
+          body: JSON.stringify(formdata),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.message || "Something went wrong. Please try again."
+        );
+      }
+
+      toast.success("Successfully sent boat lister request");
       router.push("/");
-    } else {
-      setError(result.error || "Something went wrong. Please try again.");
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   const renderStep = () => {

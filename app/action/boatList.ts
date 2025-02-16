@@ -11,7 +11,7 @@ interface UserDataResponse {
 // Get all client data
 
 export async function getAllBoatListData(
-  search: string = "",
+  search?: string,
   page: number = 1,
   limit: number = 10000
 ): Promise<UserDataResponse> {
@@ -26,10 +26,13 @@ export async function getAllBoatListData(
 
   try {
     const query = new URLSearchParams({
-      search: search,
       page: page.toString(),
       limit: limit.toString(),
     }).toString();
+
+    if (search && search.trim() !== "") {
+      query.append("search", search.trim());
+    }
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/boatlister?${query}`,
@@ -63,6 +66,66 @@ export async function getAllBoatListData(
     };
   } catch (error: any) {
     console.error("Error fetching user data:", error);
+    return {
+      error:
+        error?.message ||
+        "An unexpected error occurred. Please try again later.",
+      ok: false,
+      data: null,
+    };
+  }
+}
+
+export async function getAllBoatListDataSearch(
+  search?: string, // Optional parameter
+  page: number = 1,
+  limit: number = 10
+): Promise<UserDataResponse> {
+  try {
+    // Build query parameters dynamically
+    const queryParams = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+    });
+
+    // Add search parameter only if provided
+    if (search && search.trim() !== "") {
+      queryParams.append("search", search.trim());
+    }
+
+    const response = await fetch(
+      `${
+        process.env.NEXT_PUBLIC_API_URL
+      }/api/boatlister?${queryParams.toString()}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        next: {
+          tags: ["boatDataFetch"],
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Failed to fetch boat data:", errorData);
+      return {
+        error: errorData?.message || "Failed to fetch boat data.",
+        ok: false,
+        data: null,
+      };
+    }
+
+    const data = await response.json();
+
+    return {
+      ok: true,
+      data: data?.payload || null,
+    };
+  } catch (error: any) {
+    console.error("Error fetching boat data:", error);
     return {
       error:
         error?.message ||
@@ -171,7 +234,7 @@ export async function clientDeletedById(id: string): Promise<UserDataResponse> {
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/client-details/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/api/boatlister/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -184,9 +247,9 @@ export async function clientDeletedById(id: string): Promise<UserDataResponse> {
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error("Failed to delete client:", errorData);
+      console.error("Failed to delete boat:", errorData);
       return {
-        error: errorData?.message || "Failed to delete client.",
+        error: errorData?.message || "Failed to delete boat.",
         ok: false,
         data: null,
       };
@@ -198,7 +261,7 @@ export async function clientDeletedById(id: string): Promise<UserDataResponse> {
       data: data?.payload || null,
     };
   } catch (error) {
-    console.error("Error deleting client:", error);
+    console.error("Error deleting boat:", error);
     return {
       error: "An unexpected error occurred. Please try again later.",
       ok: false,
@@ -246,6 +309,73 @@ export async function taxProposalSend(
     return {
       error: "An unexpected error occurred. Please try again later.",
       ok: false,
+    };
+  }
+}
+
+interface UserDataResponse {
+  ok: boolean;
+  data: any | null;
+  error?: string;
+}
+
+export async function getAllBoatOrderList(
+  search?: string,
+  page: number = 1,
+  limit: number = 10
+): Promise<UserDataResponse> {
+  try {
+    const session = await auth();
+
+    const queryParams = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+    });
+
+    // Append search query only if provided and valid
+    if (search?.trim()) {
+      queryParams.append("search", encodeURIComponent(search.trim()));
+    }
+
+    const apiUrl = `${
+      process.env.NEXT_PUBLIC_API_URL
+    }/api/orders/?${queryParams.toString()}`;
+
+    const response = await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${session.user.accessToken}`,
+      },
+      next: {
+        tags: ["boatDataFetch"],
+      },
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error("Failed to fetch boat data:", errorData);
+      return {
+        ok: false,
+        error: errorData?.message || "Failed to fetch boat data.",
+        data: null,
+      };
+    }
+
+    const data = await response.json();
+
+    return {
+      ok: true,
+      data: data?.payload || null,
+    };
+  } catch (error: any) {
+    console.error("Error fetching boat data:", error);
+    return {
+      ok: false,
+      error:
+        error?.message ||
+        "An unexpected error occurred. Please try again later.",
+      data: null,
     };
   }
 }

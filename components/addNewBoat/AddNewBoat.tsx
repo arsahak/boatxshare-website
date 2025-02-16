@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { BsDash } from "react-icons/bs";
 import { IoClose } from "react-icons/io5";
 import { toast } from "react-toastify";
+import FeatureImage from "../FeatureImage";
 import UploadMultipleImages from "../UploadMultipleImages";
 
 interface BoatListingForm {
@@ -29,6 +30,7 @@ interface BoatListingForm {
   boatAmenitiesList: string[];
   bookingsOption: { duration: string; price: string }[];
   gallery: File[] | string[];
+  featureImage: string;
 }
 
 interface AddNewBoatProps {
@@ -41,6 +43,7 @@ const AddNewBoat = ({ session }: AddNewBoatProps) => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [selectedFeatureImage, setSelectedFeatureImage] = useState<string>("");
   const [boatAmenitiesList, setBoatAmenitiesList] = useState<string[]>([]);
   const [boatAmenitiesListInputValue, setBoatAmenitiesListInputValue] =
     useState<string>("");
@@ -95,6 +98,7 @@ const AddNewBoat = ({ session }: AddNewBoatProps) => {
     boatAmenitiesList: [],
     bookingsOption: [],
     gallery: [],
+    featureImage: "",
   });
 
   const handleChange = (
@@ -129,36 +133,192 @@ const AddNewBoat = ({ session }: AddNewBoatProps) => {
     setBoatListingForm((prev) => ({ ...prev, gallery: selectedFiles }));
   }, [selectedFiles]);
 
+  useEffect(() => {
+    setBoatListingForm((prev) => ({
+      ...prev,
+      featureImage: selectedFeatureImage,
+    }));
+  }, [selectedFeatureImage]);
+
+  // const handleSubmitFormData = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+
+  //   try {
+  //     const uploadImagesToImgBB = async (files: File[]): Promise<string[]> => {
+  //       const uploadedUrls: string[] = [];
+  //       const imgbbApiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
+
+  //       for (const file of files) {
+  //         const formData = new FormData();
+  //         formData.append("key", imgbbApiKey || "");
+  //         formData.append("image", file);
+
+  //         const response = await axios.post(
+  //           "https://api.imgbb.com/1/upload",
+  //           formData
+  //         );
+  //         if (response.data.success) {
+  //           uploadedUrls.push(response.data.data.url);
+  //         }
+  //       }
+  //       return uploadedUrls;
+  //     };
+
+  //     const uploadedUrls = await uploadImagesToImgBB(
+  //       boatListingForm.gallery as File[]
+  //     );
+
+  //     const uploadSingleImageToImgBB = async (
+  //       file: File
+  //     ): Promise<string | null> => {
+  //       const imgbbApiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
+
+  //       if (!imgbbApiKey) {
+  //         console.error("ImgBB API key is missing");
+  //         return null;
+  //       }
+
+  //       const formData = new FormData();
+  //       formData.append("key", imgbbApiKey);
+  //       formData.append("image", file);
+
+  //       try {
+  //         const response = await axios.post(
+  //           "https://api.imgbb.com/1/upload",
+  //           formData
+  //         );
+  //         return response.data.success ? response.data.data.url : null;
+  //       } catch (error) {
+  //         console.error("Error uploading image to ImgBB:", error);
+  //         return null;
+  //       }
+  //     };
+
+  //     // Example usage
+  //     const uploadedSingleUrl = await uploadSingleImageToImgBB(
+  //       boatListingForm.featureImage as File
+  //     );
+
+  //     const updatedForm = {
+  //       ...boatListingForm,
+  //       gallery: uploadedUrls,
+  //       FeatureImage: uploadedSingleUrl,
+  //     };
+
+  //     const response = await fetch(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/api/boatlister`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: session || "",
+  //         },
+  //         body: JSON.stringify(updatedForm),
+  //       }
+  //     );
+
+  //     if (!response.ok) {
+  //       const errorData = await response.json().catch(() => null);
+  //       throw new Error(
+  //         errorData?.error || `Error: ${response.status} ${response.statusText}`
+  //       );
+  //     }
+
+  //     toast.success("Client created successfully!");
+  //     setError(null);
+  //     router.push("/dashboard");
+  //   } catch (error) {
+  //     console.error("Error creating client data:", error);
+  //     toast.error(
+  //       error instanceof Error ? error.message : "An unexpected error occurred."
+  //     );
+  //     setError(
+  //       error instanceof Error ? error.message : "Something went wrong."
+  //     );
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+  const uploadImagesToImgBB = async (files: File[]): Promise<string[]> => {
+    const uploadedUrls: string[] = [];
+    const imgbbApiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
+
+    if (!imgbbApiKey) {
+      console.error("ImgBB API key is missing");
+      return [];
+    }
+
+    try {
+      const uploadPromises = files.map(async (file) => {
+        const formData = new FormData();
+        formData.append("key", imgbbApiKey);
+        formData.append("image", file);
+
+        const response = await axios.post(
+          "https://api.imgbb.com/1/upload",
+          formData
+        );
+        return response.data.success ? response.data.data.url : null;
+      });
+
+      const results = await Promise.all(uploadPromises);
+      return results.filter((url): url is string => url !== null);
+    } catch (error) {
+      console.error("Error uploading images:", error);
+      return [];
+    }
+  };
+
+  const uploadSingleImageToImgBB = async (
+    file: File
+  ): Promise<string | null> => {
+    const imgbbApiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
+
+    if (!imgbbApiKey) {
+      console.error("ImgBB API key is missing");
+      return null;
+    }
+
+    const formData = new FormData();
+    formData.append("key", imgbbApiKey);
+    formData.append("image", file);
+
+    try {
+      const response = await axios.post(
+        "https://api.imgbb.com/1/upload",
+        formData
+      );
+      return response.data.success ? response.data.data.url : null;
+    } catch (error) {
+      console.error("Error uploading image to ImgBB:", error);
+      return null;
+    }
+  };
+
   const handleSubmitFormData = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const uploadImagesToImgBB = async (files: File[]): Promise<string[]> => {
-        const uploadedUrls: string[] = [];
-        const imgbbApiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
+      // Upload gallery images
+      const uploadedUrls = boatListingForm.gallery
+        ? await uploadImagesToImgBB(boatListingForm.gallery as File[])
+        : [];
 
-        for (const file of files) {
-          const formData = new FormData();
-          formData.append("key", imgbbApiKey || "");
-          formData.append("image", file);
+      // Upload single feature image
+      const uploadedSingleUrl = boatListingForm.featureImage
+        ? await uploadSingleImageToImgBB(boatListingForm.featureImage as File)
+        : null;
 
-          const response = await axios.post(
-            "https://api.imgbb.com/1/upload",
-            formData
-          );
-          if (response.data.success) {
-            uploadedUrls.push(response.data.data.url);
-          }
-        }
-        return uploadedUrls;
+      // Prepare the updated form data
+      const updatedForm = {
+        ...boatListingForm,
+        gallery: uploadedUrls,
+        featureImage: uploadedSingleUrl, // Fixed capitalization issue from "FeatureImage"
       };
 
-      const uploadedUrls = await uploadImagesToImgBB(
-        boatListingForm.gallery as File[]
-      );
-      const updatedForm = { ...boatListingForm, gallery: uploadedUrls };
-
+      // Submit form data
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/boatlister`,
         {
@@ -603,7 +763,19 @@ const AddNewBoat = ({ session }: AddNewBoatProps) => {
           </div>
         </div>
         <div className="flex items-center space-x-6 py-3">
-          <div className="w-full">
+          <div className="w-[35%]">
+            <label
+              htmlFor="name-icon"
+              className="block mb-2 text-lg font-normal text-gray-900"
+            >
+              Upload Feature Image<span className="text-primary">*</span>
+            </label>
+            <FeatureImage
+              selectedFeatureImage={selectedFeatureImage}
+              setSelectedFeatureImage={setSelectedFeatureImage}
+            />
+          </div>
+          <div className="w-[65%]">
             <label
               htmlFor="name-icon"
               className="block mb-2 text-lg font-normal text-gray-900"
@@ -611,14 +783,6 @@ const AddNewBoat = ({ session }: AddNewBoatProps) => {
               Upload Image<span className="text-primary">*</span>
             </label>
 
-            {/* <input
-              autoComplete="off"
-              type="text"
-              id="clientInfoForm.fullName"
-              className="bg-[#eeeeee] border border-gray-300 text-lg rounded-lg focus:ring-primary focus:border-primary block w-full pl-4 py-2 placeholder-gray-400 active:border-primary outline-none"
-              placeholder="Enter..."
-              name="basicInformation.fullName"
-            /> */}
             <UploadMultipleImages
               selectedFiles={selectedFiles}
               setSelectedFiles={setSelectedFiles}
