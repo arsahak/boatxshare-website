@@ -302,15 +302,17 @@ const BoatDetails = ({ boatDetails, session }: any) => {
               <div className="mb-16">
                 <h2 className="text-xl font-semibold mb-3">Amenities</h2>
                 <ul className="space-y-3">
-                  {boatDetails?.boatAmenitiesList?.map((amenity, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center gap-3 text-lg text-gray-800"
-                    >
-                      <IoIosCheckmarkCircleOutline className="size-4" />
-                      {amenity}
-                    </li>
-                  ))}
+                  {boatDetails?.boatAmenitiesList?.map(
+                    (amenity: any, index: number) => (
+                      <li
+                        key={index}
+                        className="flex items-center gap-3 text-lg text-gray-800"
+                      >
+                        <IoIosCheckmarkCircleOutline className="size-4" />
+                        {amenity}
+                      </li>
+                    )
+                  )}
                 </ul>
               </div>
 
@@ -338,7 +340,7 @@ const BoatDetails = ({ boatDetails, session }: any) => {
               <div className="">
                 <h2 className="text-xl font-semibold mb-3">Booking Option</h2>
                 <div className="space-y-4">
-                  {boatDetails?.bookingOption?.map((spec) => (
+                  {boatDetails?.bookingOption?.map((spec: any) => (
                     <div key={spec.label} className="flex items-center gap-1">
                       <TbPointFilled className="w-[18px] h-[18px] stroke-[1.5px] text-gray-500 shrink-0" />
                       <div className="flex items-center gap-10">
@@ -399,18 +401,19 @@ const BoatDetails = ({ boatDetails, session }: any) => {
                       </Button>
                     </DropdownTrigger>
                     <DropdownMenu
-                      aria-label="Static Actions"
-                      value={durationValue}
-                      onChange={(e) => setDurationValue(e.target.value)}
+                    // value={durationValue}
+                    // onChange={(e: any) => setDurationValue(e.target.value)}
                     >
-                      {boatDetails?.bookingOption?.map((el, index) => (
-                        <DropdownItem key={index}>
-                          <div className="flex items-center space-x-4">
-                            <p className="w-16">{el?.duration}</p> -
-                            <p>${el?.price}</p>
-                          </div>
-                        </DropdownItem>
-                      ))}
+                      {boatDetails?.bookingOption?.map(
+                        (el: any, index: number) => (
+                          <DropdownItem key={index}>
+                            <div className="flex items-center space-x-4">
+                              <p className="w-16">{el?.duration}</p> -
+                              <p>${el?.price}</p>
+                            </div>
+                          </DropdownItem>
+                        )
+                      )}
                     </DropdownMenu>
                   </Dropdown>
                 </div>

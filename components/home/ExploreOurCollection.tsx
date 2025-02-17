@@ -5,8 +5,8 @@ import { BiCabinet } from "react-icons/bi";
 import { IoPeopleOutline } from "react-icons/io5";
 import { RiShip2Line } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
 import { slugify } from "../shared/ui/slugify";
-import { AppDispatch, RootState } from "./store";
 
 const ExploreOurCollection = () => {
   const dispatch: AppDispatch = useDispatch();

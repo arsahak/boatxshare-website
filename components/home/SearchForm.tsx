@@ -6,8 +6,8 @@ import { BsPeople } from "react-icons/bs";
 import { SlLocationPin } from "react-icons/sl";
 import { useDispatch, useSelector } from "react-redux";
 import { setBoatListData, setLoading } from "../../redux/features/boatSlice";
+import { AppDispatch, RootState } from "../../redux/store";
 import Loader from "../shared/ui/Loader";
-import { AppDispatch, RootState } from "./store";
 
 const SearchForm = () => {
   const [searchLoading, setSearchLoading] = useState(false);

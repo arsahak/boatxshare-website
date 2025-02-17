@@ -24,12 +24,9 @@ const InformationUpdateForm = ({
   const [logoPreview, setLogoPreview] = useState<string>(userData?.logoUrl);
   const [businessInfoForm, setBusinessInfoForm] = useState({
     image: userData?.logoUrl,
-    businessName: userData?.businessName || "",
-    businessWebsite: userData?.businessWebsite || "",
-    website: userData?.website || "",
+    name: userData?.name || "",
     phone: userData?.phone || "",
     address: userData?.address || "",
-    brandColor: userData?.brandColor || "#ff0000",
   });
 
   const [businessEmailForm, setBusinessEmailForm] = useState("");
@@ -80,7 +77,7 @@ const InformationUpdateForm = ({
 
     const formData = new FormData();
     formData.append("image", businessInfoForm.image);
-    formData.append("name", businessInfoForm.businessName);
+    formData.append("name", businessInfoForm.name);
     formData.append("phone", businessInfoForm.phone);
     formData.append("address", businessInfoForm.address);
 
@@ -156,7 +153,7 @@ const InformationUpdateForm = ({
                       className="bg-white border border-gray-300 text-lg rounded-lg focus:ring-primary focus:border-primary block w-[400px] pl-4 py-2 placeholder-gray-400  active:border-primary outline-none "
                       id="businessName"
                       name="businessName"
-                      value={businessInfoForm.name}
+                      value={businessInfoForm?.name}
                       onChange={handleChange}
                     />
                   ) : (

@@ -1,6 +1,6 @@
 import { getAllBoatOrderList } from "@/app/action/boatList";
 import { auth } from "@/auth";
-import BoatOrderView from "@/components/addNewBoat/boatOrderView";
+import BoatOrderView from "../../../../components/addNewBoat/BoatOrderView";
 
 const page = async ({ params }: any) => {
   const { id } = await params;

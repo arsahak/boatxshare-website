@@ -2,10 +2,10 @@
 import { auth } from "@/auth";
 import { revalidateTag } from "next/cache";
 
-interface UserDataResponse {
+interface BoatListResponse {
   error?: string;
   ok: boolean;
-  data?: any;
+  data?: any; // ✅ Make sure it's consistent everywhere
 }
 
 // Get all client data
@@ -17,30 +17,25 @@ export async function getAllBoatListData(
 ): Promise<UserDataResponse> {
   const session = await auth();
 
-  if (!session?.user?.accessToken) {
-    return {
-      error: "User is not authenticated.",
-      ok: false,
-    };
-  }
-
   try {
-    const query = new URLSearchParams({
+    const queryParams = new URLSearchParams({
       page: page.toString(),
       limit: limit.toString(),
-    }).toString();
+    });
 
     if (search && search.trim() !== "") {
-      query.append("search", search.trim());
+      queryParams.append("search", search.trim());
     }
 
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/boatlister?${query}`,
+      `${
+        process.env.NEXT_PUBLIC_API_URL
+      }/api/boatlister?${queryParams.toString()}`,
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${session.user.accessToken}`,
+          Authorization: session?.user?.accessToken ?? "", // Ensure session is valid
         },
         next: {
           tags: ["clientDataCreate", "clientDataDelete", "clientDataUpdate"],
@@ -58,18 +53,19 @@ export async function getAllBoatListData(
       };
     }
 
-    const data = await response.json();
+    const data = (await response.json()) as { payload?: any };
 
     return {
       ok: true,
-      data: data?.payload || null,
+      data: data.payload || null,
     };
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching user data:", error);
     return {
       error:
-        error?.message ||
-        "An unexpected error occurred. Please try again later.",
+        error instanceof Error
+          ? error.message
+          : "An unexpected error occurred. Please try again later.",
       ok: false,
       data: null,
     };
@@ -315,7 +311,7 @@ export async function taxProposalSend(
 
 interface UserDataResponse {
   ok: boolean;
-  data: any | null;
+  data?: any;
   error?: string;
 }
 
@@ -345,7 +341,7 @@ export async function getAllBoatOrderList(
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `${session.user.accessToken}`,
+        Authorization: `${session?.user?.accessToken}`,
       },
       next: {
         tags: ["boatDataFetch"],

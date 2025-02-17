@@ -307,9 +307,15 @@ const AddNewBoat = ({ session }: AddNewBoatProps) => {
         : [];
 
       // Upload single feature image
-      const uploadedSingleUrl = boatListingForm.featureImage
-        ? await uploadSingleImageToImgBB(boatListingForm.featureImage as File)
-        : null;
+      const uploadedSingleUrl =
+        typeof boatListingForm.featureImage === "object" &&
+        boatListingForm.featureImage !== null &&
+        "name" in boatListingForm.featureImage &&
+        "size" in boatListingForm.featureImage
+          ? await uploadSingleImageToImgBB(boatListingForm.featureImage as File)
+          : typeof boatListingForm.featureImage === "string"
+          ? boatListingForm.featureImage // Keep existing URL if it's already uploaded
+          : null;
 
       // Prepare the updated form data
       const updatedForm = {
@@ -771,8 +777,8 @@ const AddNewBoat = ({ session }: AddNewBoatProps) => {
               Upload Feature Image<span className="text-primary">*</span>
             </label>
             <FeatureImage
-              selectedFeatureImage={selectedFeatureImage}
-              setSelectedFeatureImage={setSelectedFeatureImage}
+              selectedFeatureImage={selectedFeatureImage as any}
+              setSelectedFeatureImage={setSelectedFeatureImage as any}
             />
           </div>
           <div className="w-[65%]">

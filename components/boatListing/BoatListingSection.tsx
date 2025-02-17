@@ -1,6 +1,5 @@
 "use client";
 
-import { createBoatListerRequest } from "@/app/action/user";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -69,12 +68,6 @@ const BoatListingSection = ({ session }: any) => {
       };
 
       // First API call
-      const result = await createBoatListerRequest(formdata);
-
-      if (!result || result.error) {
-        throw new Error(result?.error || "Failed to send request.");
-      }
-
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/boat-listing`,
         {
@@ -97,7 +90,7 @@ const BoatListingSection = ({ session }: any) => {
       toast.success("Successfully sent boat lister request");
       router.push("/");
     } catch (error) {
-      setError(error.message);
+      setError("Data not submit");
     } finally {
       setLoading(false);
     }
