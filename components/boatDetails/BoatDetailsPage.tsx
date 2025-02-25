@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { slugify } from "../shared/ui/slugify";
 
-const ExploreOurCollection = () => {
+const BoatDetailsPage = () => {
   const dispatch: AppDispatch = useDispatch();
 
   const loading = useSelector((state: RootState) => state.boatList.loading);
@@ -22,15 +22,15 @@ const ExploreOurCollection = () => {
     <div className="bg-secondary text-black">
       {/* Search end */}
       <div className="container py-10 md:pb-20 mt-10 md:pt-44">
-        <div className="flex md:flex-row flex-col justify-between items-center space-x-4 md:space-x-8 ">
-          <h2 className=" font-bold text-2xl md:text-4xl leading-snug text-center md:text-left">
+        <div className="space-x-4 md:space-x-8 ">
+          <h2 className=" font-bold text-xl md:text-2xl leading-snug text-center md:text-left">
             Explore Our Collection <br /> of Premium Luxury Yachts
           </h2>
-          <p className="text-base  md:text-lg font-normal text-center md:text-left mt-4 md:mt-0">
+          {/* <p className="text-base  md:text-lg font-normal text-center md:text-left mt-4 md:mt-0">
             Discover our luxurious yachts, meticulously <br /> designed for
             ultimate comfort, perfect for <br />
             both leisurely escapes
-          </p>
+          </p> */}
         </div>
 
         {loading ? (
@@ -132,4 +132,4 @@ const ExploreOurCollection = () => {
   );
 };
 
-export default ExploreOurCollection;
+export default BoatDetailsPage;

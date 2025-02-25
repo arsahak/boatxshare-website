@@ -24,10 +24,10 @@ const NavbarLanguageDropdown: React.FC<NavbarDropdownProps> = ({
 
   const navData = [
     { title: "English", value: "en" },
-    { title: "Español", value: "es" },
-    { title: "Français", value: "fr" },
-    { title: "日本語", value: "ja" },
-    { title: "Português", value: "pt" },
+    // { title: "Español", value: "es" },
+    // { title: "Français", value: "fr" },
+    // { title: "日本語", value: "ja" },
+    // { title: "Português", value: "pt" },
   ];
 
   return (

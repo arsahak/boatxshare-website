@@ -17,3 +17,4 @@ export const calculateRemainingDays = (expiryDate: string): number => {
 
   return remainingDays;
 };
+
