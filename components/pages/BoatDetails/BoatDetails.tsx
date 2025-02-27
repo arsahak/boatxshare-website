@@ -475,19 +475,21 @@ const BoatDetails = ({ boatDetails, session }: any) => {
               <div className="">
                 <h2 className="text-xl font-semibold mb-3">Booking Option</h2>
                 <div className="space-y-4">
-                  {boatDetails?.bookingOption?.map((spec: any) => (
-                    <div key={spec.label} className="flex items-center gap-1">
-                      <TbPointFilled className="w-[18px] h-[18px] stroke-[1.5px] text-gray-500 shrink-0" />
-                      <div className="flex items-center gap-10">
-                        <span className="text-lg text-gray-700 w-32">
-                          {spec.duration}
-                        </span>
-                        <span className="text-lg font-medium">
-                          $ {spec.price}
-                        </span>
+                  {boatDetails?.bookingOption?.map(
+                    (spec: any, index: number) => (
+                      <div key={index} className="flex items-center gap-1">
+                        <TbPointFilled className="w-[18px] h-[18px] stroke-[1.5px] text-gray-500 shrink-0" />
+                        <div className="flex items-center gap-10">
+                          <span className="text-lg text-gray-700 w-32">
+                            {spec.duration}
+                          </span>
+                          <span className="text-lg font-medium">
+                            $ {spec.price}
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  )}
                 </div>
               </div>
             </div>

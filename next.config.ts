@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
+  reactStrictMode: true,
+  experimental: {
+    reactRefresh: true, // Ensure Fast Refresh is enabled
+  },
   images: {
     remotePatterns: [
       {

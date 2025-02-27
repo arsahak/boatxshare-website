@@ -18,6 +18,17 @@ export async function doCredentialLogin(formData: FormData): Promise<any> {
   }
 }
 
+export async function doGoogleLogin(): Promise<any> {
+  try {
+    const response = await signIn("google", {
+      redirect: false, // Set to true if you want to redirect to the default callback page
+    });
+    return response;
+  } catch (err: unknown) {
+    throw new Error((err as Error).message || "Google sign-in failed");
+  }
+}
+
 export async function userSignUp(
   formData: FormData
 ): Promise<{ error?: string; ok: boolean; url?: string }> {

@@ -102,7 +102,7 @@ const UserSignupForm: React.FC = () => {
               name="name"
               required
               className="bg-white border border-gray-300 text-lg rounded-lg focus:ring-primary focus:border-primary block w-full pl-3 py-2 placeholder-gray-400 outline-none"
-              placeholder="AR Sahak"
+              placeholder="Enter your name"
               autoComplete="off"
               value={formData.name}
               onChange={handleChange}
@@ -123,7 +123,8 @@ const UserSignupForm: React.FC = () => {
               name="email"
               required
               className="bg-white border border-gray-300 text-lg rounded-lg focus:ring-primary focus:border-primary block w-full pl-3 py-2 placeholder-gray-400 outline-none"
-              placeholder="example@gmail.com"
+              p
+              placeholder="Enter your email"
               autoComplete="off"
               value={formData.email}
               onChange={handleChange}
@@ -145,7 +146,7 @@ const UserSignupForm: React.FC = () => {
               name="phone"
               required
               className="bg-white border border-gray-300 text-lg rounded-lg focus:ring-primary focus:border-primary block w-full pl-3 py-2 placeholder-gray-400 outline-none"
-              placeholder="0123456789"
+              placeholder="Enter your phone"
               autoComplete="off"
               value={formData.phone}
               onChange={handleChange}
